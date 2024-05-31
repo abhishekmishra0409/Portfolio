@@ -1,0 +1,357 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Helvetica Neue", Helvetica, Arial;
+}
+
+body {
+  background-color: #0c0c1d;
+  color: lightgray;
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+section {
+  scroll-snap-align: center;
+}
+
+.hero {
+  height: calc(100vh - 100px);
+  overflow: hidden;
+  position: relative;
+
+  .textContainer {
+    z-index: 1000;
+    height: 75%;
+    position: absolute;
+    left: 10%;
+
+    .buttons {
+      button {
+        padding: 17px;
+        border: 1px solid white;
+        border-radius: 10px;
+        background-color: transparent;
+      }
+    }
+  }
+
+  .slidingTextContainer {
+    position: absolute;
+    font-size: 50vh;
+    bottom: -80px;
+    white-space: nowrap;
+    color: #ffffff09;
+    width: 50%;
+    font-weight: bold;
+  }
+
+  .imageContainer {
+    height: 100%;
+    position: absolute;
+    right: 0;
+    overflow: hidden;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.Mysql {
+  color: #00618B;
+}
+
+.portfolio {
+  position: relative;
+
+  .progress {
+    position: sticky;
+    top: 0;
+    left: 0;
+    padding-top: 50px;
+    text-align: center;
+    color: orange;
+    font-size: 30px;
+
+    .progressBar {
+      width: 100%;
+      height: 8px;
+      background-color: white;
+      border-radius: 10px;
+    }
+  }
+
+  .Container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+
+    .Wrapper {
+      max-width: 1300px;
+      height: 100%;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+
+      .ImageContainer {
+        flex: 1;
+        height: 43%;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .TextContainer {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 30px;
+
+        h2 {
+          font-size: 40px;
+        }
+
+        p {
+          color: gray;
+          font-size: 18px;
+        }
+
+        button {
+          background-color: orange;
+          border: none;
+          border-radius: 10px;
+          padding: 10px;
+          width: 150px;
+          color: black;
+        }
+      }
+    }
+  }
+}
+
+.contact {
+  height: 100vh;
+  max-width: 1300px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .textContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    h1 {
+      font-size: 80px;
+      line-height: 70px;
+    }
+
+    .item {
+      h2 {
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      span {
+        font-weight: 300;
+      }
+    }
+  }
+
+  .formContainer {
+    flex: 1;
+    position: relative;
+
+    .phoneSvg {
+      position: absolute;
+      margin: auto;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    input, textarea {
+      padding: 20px;
+      background-color: transparent;
+      border: 1px solid white;
+      color: white;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 150px;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      font-weight: 500;
+      background-color: orange;
+      color: #0c0c1d;
+    }
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 738px) {
+
+    .px-8 {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+
+    }
+    .hero {
+      height: 75vh;
+
+      .textContainer {
+        left: 5%;
+        height: auto;
+        width: 90%;
+        align-items: center;
+        text-align: center;
+
+        h3 {
+          font-size: 35px;
+        }
+
+        h2 {
+          font-size: 25px;
+        }
+
+        .buttons {
+          button {
+            padding: 10px;
+            width: 100%;
+            margin-top: 10px;
+          }
+        }
+      }
+
+      .slidingTextContainer {
+        font-size: 30vh;
+        bottom: 0;
+      }
+
+      .imageContainer {
+        width: 100%;
+        height: auto;
+        top: unset;
+        bottom: 0%;
+
+        img {
+          object-fit: cover;
+        }
+      }
+    }
+
+    .portfolio {
+
+      .progress {
+        font-size: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .progressBar {
+          height: 5px;
+          width: 90%;
+        }
+      }
+
+      .Container {
+        flex-direction: column;
+
+        .Wrapper {
+          flex-direction: column;
+          gap: 20px;
+          max-width: 100%;
+
+          .ImageContainer {
+            height: auto;
+            width: 90%;
+
+            img {
+              height: auto;
+              padding-top: 35%;
+            }
+          }
+
+          .TextContainer {
+            gap: 15px;
+            padding: 10px;
+            text-align: center;
+            transform: none !important;
+
+            h2 {
+              font-size: 24px;
+            }
+
+            p {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+    .contact {
+      flex-direction: column;
+      //text-align: center;
+
+      .textContainer {
+        gap: 20px;
+        text-align: center;
+        align-items: center;
+
+        h1 {
+          font-size: 40px;
+        }
+
+        .item {
+          h2 {
+            font-size: 18px;
+          }
+
+          span {
+            font-size: 16px;
+          }
+        }
+      }
+
+      .formContainer {
+        width: 80%;
+        bottom: 50px;
+
+        form {
+          input, textarea {
+            width: 100%;
+          }
+
+          button {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+  }
+}
+
+@include mobile;
