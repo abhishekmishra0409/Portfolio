@@ -8,15 +8,25 @@
 body {
   background-color: #0c0c1d;
   color: lightgray;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
 }
 
 html {
-  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
+  scroll-snap-type: none;
+
+  @media (min-width: 1024px) {
+    scroll-snap-type: y proximity; // Use proximity instead of mandatory for better UX
+  }
 }
 
 section {
-  scroll-snap-align: center;
+
+  @media (min-width: 1024px) {
+    scroll-snap-align: start;
+  }
 }
 
 .hero {
@@ -25,7 +35,7 @@ section {
   position: relative;
 
   .textContainer {
-    z-index: 1000;
+    z-index: 10;
     height: 75%;
     position: absolute;
     left: 10%;
@@ -77,8 +87,6 @@ section {
     left: 0;
     padding-top: 50px;
     text-align: center;
-    //color: orange;
-    //font-size: 30px;
 
     .progressBar {
       width: 100%;
@@ -113,7 +121,7 @@ section {
         img {
           width: 100%;
           height: 100%;
-          object-fit: cover;
+          object-fit: contain;
         }
       }
 
@@ -191,7 +199,8 @@ section {
       gap: 20px;
     }
 
-    input, textarea {
+    input,
+    textarea {
       padding: 20px;
       background-color: transparent;
       border: 1px solid white;
@@ -211,14 +220,16 @@ section {
   }
 }
 
+// Responsive breakpoints
 @mixin mobile {
-  @media (max-width: 738px) {
+  @media (max-width: 767px) {
 
     .px-8 {
       padding-left: 1rem !important;
       padding-right: 1rem !important;
 
     }
+
     .hero {
       height: 75vh;
 
@@ -312,6 +323,7 @@ section {
         }
       }
     }
+
     .contact {
       flex-direction: column;
       //text-align: center;
@@ -341,7 +353,9 @@ section {
         bottom: 50px;
 
         form {
-          input, textarea {
+
+          input,
+          textarea {
             width: 100%;
           }
 
@@ -356,3 +370,174 @@ section {
 }
 
 @include mobile;
+
+// Mobile-specific fixes
+@media (max-width: 767px) {
+
+  // Fix footer clickability with specific classes
+  footer.footer-mobile-fix {
+    position: relative;
+    z-index: 111110;
+    pointer-events: auto !important;
+    isolation: isolate; // Create new stacking context
+
+    .footer-link,
+    .footer-nav-link {
+      position: relative;
+      z-index: 111111;
+      pointer-events: auto !important;
+      touch-action: manipulation; // Improve touch responsiveness
+      -webkit-tap-highlight-color: rgba(6, 182, 212, 0.3); // Better tap feedback
+      cursor: pointer;
+      min-height: 44px;
+      min-width: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-social-links,
+    .footer-nav {
+      position: relative;
+      z-index: 11111;
+      pointer-events: auto !important;
+    }
+  }
+
+  // Prevent fixed backgrounds from blocking interactions (except mobile menu)
+  .fixed:not(.mobile-sidebar):not(.bg-neutral-900) {
+    pointer-events: none;
+
+    * {
+      pointer-events: auto;
+    }
+  }
+
+  // Improve button and link touch targets (minimum 44x44px for accessibility)
+  button,
+  a,
+  [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(6, 182, 212, 0.3);
+  }
+
+  // Disable scroll-snap completely on mobile
+  html {
+    scroll-snap-type: none !important;
+  }
+
+  section {
+    scroll-snap-align: none !important;
+  }
+
+  // Prevent unwanted scroll behavior
+  body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+
+  // Ensure nav links are clickable
+  nav a,
+  nav button {
+    pointer-events: auto !important;
+    z-index: 50;
+  }
+
+  // Mobile sidebar specific fixes
+  .mobile-sidebar {
+    z-index: 9999 !important;
+    position: fixed !important;
+    pointer-events: auto !important;
+    isolation: isolate; // Create new stacking context
+    will-change: transform; // Optimize animation performance
+    transform: translateZ(0); // Force hardware acceleration
+
+    // Ensure navigation and content is clickable
+    >div {
+      pointer-events: auto !important;
+    }
+
+    // Navigation links styling
+    nav {
+      pointer-events: auto !important;
+    }
+
+    button,
+    a {
+      pointer-events: auto !important;
+      z-index: auto;
+      position: relative;
+      cursor: pointer;
+      -webkit-tap-highlight-color: rgba(6, 182, 212, 0.3);
+    }
+
+    // Ensure close button is always visible and clickable
+    button[aria-label="Close mobile menu"] {
+      z-index: 10000 !important;
+      pointer-events: auto !important;
+      position: absolute !important;
+      top: 1rem !important;
+      right: 1rem !important;
+      cursor: pointer !important;
+    }
+  }
+
+  // Ensure mobile menu button is above everything when menu is closed
+  button[aria-label="Toggle mobile menu"] {
+    z-index: 100 !important;
+    position: relative !important;
+    pointer-events: auto !important;
+  }
+
+  // Ensure footer is always on top and clickable (but below mobile menu)
+  footer {
+    z-index: 100 !important;
+    position: relative !important;
+  }
+
+  // Mobile menu backdrop - only clickable for closing menu, not blocking sidebar
+  .fixed.inset-0.bg-neutral-900 {
+    z-index: 9998 !important;
+    pointer-events: auto !important;
+  }
+
+  // Improve touch scrolling
+  * {
+    -webkit-tap-highlight-color: rgba(6, 182, 212, 0.2);
+  }
+
+  // Prevent text selection on tap (improves touch responsiveness)
+  button,
+  a {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+
+// Tablet styles
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero {
+    .textContainer {
+      left: 5%;
+      width: 50%;
+    }
+  }
+
+  .portfolio {
+    .Container {
+      padding: 2rem;
+    }
+  }
+}
+
+// Large screens
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1280px;
+  }
+}

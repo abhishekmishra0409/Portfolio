@@ -21,6 +21,10 @@ const variants = {
     }
 };
 
+/**
+ * Contact Section Component
+ * Contact form and information with EmailJS integration
+ */
 export const Contact = () => {
     const formRef = useRef();
     const ref = useRef();
@@ -71,9 +75,10 @@ export const Contact = () => {
     };
 
     return (
-        <>
-            <div id="contactSection"
-                 className="contact flex flex-col lg:flex-row items-center justify-between min-h-screen">
+        <section 
+            id="contactSection"
+            className="contact flex flex-col lg:flex-row items-center justify-between min-h-screen"
+        >
                 <motion.div
                     className="flex-1 flex flex-col gap-8 text-center lg:text-left p-4 lg:p-0"
                     initial={{opacity: 0, y: 500}}
@@ -129,8 +134,7 @@ export const Contact = () => {
                         </button>
                     </motion.form>
                 </div>
-            </div>
-        </>
+            </section>
     );
 
 };

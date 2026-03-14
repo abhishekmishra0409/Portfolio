@@ -29,6 +29,16 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Validate Firebase secrets
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT" ]; then
+            echo "Missing required secret: FIREBASE_SERVICE_ACCOUNT"
+            echo "Add your Firebase service account JSON in: GitHub Repo -> Settings -> Secrets and variables -> Actions"
+            exit 1
+          fi
+
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -36,4 +46,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           # Deploy directly to the live channel on every push to main/master
           channelId: live
-          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
+          projectId: abhishekmishra-0409
