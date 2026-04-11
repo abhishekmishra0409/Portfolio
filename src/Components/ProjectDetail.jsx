@@ -1,11 +1,20 @@
-import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { FaExternalLinkAlt, FaGithub, FaArrowLeft, FaCheckCircle, FaCode, FaUsers, FaRocket } from 'react-icons/fa';
-import { getProjectBySlug, projectsData } from '../data/projectsData';
-import { SEO } from './SEO';
-import { ProjectDetailSchema } from './StructuredData';
-import { Navbar } from './Navbar';
-import { Footer } from './Footer';
+import { useParams, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { FaGithub } from "react-icons/fa";
+import {
+    TbArrowLeft,
+    TbCircleCheck,
+    TbCode,
+    TbExternalLink,
+    TbRocket,
+    TbUsersGroup,
+} from "react-icons/tb";
+import { getProjectBySlug, projectsData } from "../data/projectsData";
+import { SEO } from "./SEO";
+import { ProjectDetailSchema } from "./StructuredData";
+import { Navbar } from "./Navbar";
+import { Footer } from "./Footer";
+import { CosmicBackdrop } from "./CosmicBackdrop.jsx";
 
 /**
  * Project Detail Page Component
@@ -23,13 +32,21 @@ export const ProjectDetail = () => {
                     description="The requested project could not be found."
                     canonical="https://abmishra.dev/projects"
                 />
-                <section className="min-h-screen bg-neutral-900 text-neutral-300 flex items-center justify-center">
-                    <div className="text-center">
-                        <h1 className="text-4xl font-bold mb-4">Project Not Found</h1>
-                        <Link to="/projects" className="text-cyan-400 hover:text-cyan-300">
-                            ← Back to Projects
-                        </Link>
+                <section className="site-shell theme-void relative min-h-screen overflow-x-hidden text-slate-100">
+                    <CosmicBackdrop />
+                    <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8">
+                        <Navbar />
                     </div>
+                    <main className="relative z-10 mx-auto flex min-h-[60vh] w-full max-w-7xl flex-col items-center justify-center px-4 pb-16 pt-8 sm:px-6 lg:px-8">
+                        <div className="surface-card max-w-md rounded-[2rem] px-8 py-12 text-center">
+                            <h1 className="font-display text-3xl font-bold text-white">Project Not Found</h1>
+                            <p className="mt-3 text-slate-400">That mission isn&apos;t in the archive.</p>
+                            <Link to="/projects" className="button-primary mt-8 inline-flex">
+                                Back to Projects
+                            </Link>
+                        </div>
+                    </main>
+                    <Footer themeClass="theme-void" />
                 </section>
             </>
         );
@@ -50,15 +67,14 @@ export const ProjectDetail = () => {
             />
             <ProjectDetailSchema project={project} />
 
-            <section className="overflow-x-hidden text-neutral-300 selection:bg-cyan-50 selection:text-cyan-500">
-                <div className="fixed top-0 -z-10 h-full w-full bg-gradient-to-b from-neutral-900 to-neutral-800"></div>
-                <div className="container mx-auto px-8">
+            <section className="site-shell theme-detail relative min-h-screen overflow-x-hidden text-slate-100">
+                <div aria-hidden="true" className="site-backdrop" />
+                <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8">
                     <Navbar />
                 </div>
-            </section>
-
-            <main className="bg-neutral-900 py-12 lg:py-20">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+            
+            <main className="relative z-10 py-8 lg:py-12">
+                <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
                     {/* Back Button */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
@@ -67,25 +83,26 @@ export const ProjectDetail = () => {
                     >
                         <Link
                             to="/projects"
-                            className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors"
+                            className="button-ghost inline-flex items-center gap-2 !rounded-2xl !px-4 !py-2.5"
                         >
-                            <FaArrowLeft /> Back to Projects
+                            <TbArrowLeft className="text-lg" /> Back to Projects
                         </Link>
                     </motion.div>
                     {/* Project Header */}
-                    <header className="mb-12">
+                    <header className="surface-card mb-12 rounded-[2rem] p-6 lg:p-8">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
                         >
-                            <span className="inline-block px-4 py-2 bg-gradient-to-r from-cyan-400/20 to-purple-500/20 border border-cyan-400/30 rounded-full text-cyan-300 text-sm font-medium mb-4">
-                                {project.category} • {project.stack}
+                            <p className="space-eyebrow mb-4">Transmission · Case File</p>
+                            <span className="mb-4 inline-block rounded-full border border-violet-400/25 bg-violet-400/10 px-4 py-2 text-sm font-medium text-violet-100">
+                                {`${project.category} | ${project.stack}`}
                             </span>
-                            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+                            <h1 className="mb-4 font-display text-4xl font-bold text-gradient sm:text-5xl lg:text-6xl">
                                 {project.title}
                             </h1>
-                            <p className="text-xl text-neutral-400 mb-6">{project.subtitle}</p>
+                            <p className="mb-6 text-xl text-slate-300">{project.subtitle}</p>
 
                             {/* Action Buttons */}
                             <div className="flex flex-wrap gap-4">
@@ -93,7 +110,7 @@ export const ProjectDetail = () => {
                                     href={project.link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-400 to-purple-500 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:shadow-cyan-500/50 transition-all duration-300"
+                                    className="button-primary"
                                 >
                                     <FaExternalLinkAlt /> View Live Demo
                                 </a>
@@ -102,7 +119,7 @@ export const ProjectDetail = () => {
                                         href={project.github}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 bg-neutral-800 border border-neutral-700 text-neutral-300 font-semibold py-3 px-6 rounded-full hover:border-cyan-400/50 hover:text-cyan-400 transition-all duration-300"
+                                        className="button-secondary"
                                     >
                                         <FaGithub /> View Code
                                     </a>
@@ -116,12 +133,12 @@ export const ProjectDetail = () => {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.2 }}
-                        className="mb-12 rounded-2xl overflow-hidden shadow-2xl"
+                        className="surface-card mb-12 overflow-hidden rounded-[2rem] p-3 shadow-2xl"
                     >
                         <img
                             src={project.img}
                             alt={`${project.title} - ${project.subtitle} by Abhishek Mishra`}
-                            className="w-full h-auto"
+                            className="h-auto w-full rounded-[1.5rem] border border-white/10"
                             loading="eager"
                             width="1200"
                             height="675"
@@ -134,11 +151,11 @@ export const ProjectDetail = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3 }}
-                            className="bg-gradient-to-br from-neutral-800/50 to-neutral-900/50 backdrop-blur-sm border border-neutral-700/50 rounded-2xl p-6 lg:p-8 mb-8"
+                            className="surface-card mb-8 rounded-[2rem] p-6 lg:p-8"
                         >
-                            <h2 className="text-2xl font-bold mb-4 text-white">About This Project</h2>
-                            <p className="text-neutral-300 text-lg leading-relaxed mb-4">{project.desc}</p>
-                            <p className="text-neutral-400 leading-relaxed">{project.longDesc}</p>
+                            <h2 className="mb-4 font-display text-2xl font-bold text-white">About This Project</h2>
+                            <p className="mb-4 text-lg leading-relaxed text-slate-300">{project.desc}</p>
+                            <p className="leading-relaxed text-slate-400">{project.longDesc}</p>
                         </motion.section>
 
                         {/* Features Section */}
@@ -146,16 +163,16 @@ export const ProjectDetail = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4 }}
-                            className="bg-gradient-to-br from-neutral-800/50 to-neutral-900/50 backdrop-blur-sm border border-neutral-700/50 rounded-2xl p-6 lg:p-8 mb-8"
+                            className="surface-card mb-8 rounded-[2rem] p-6 lg:p-8"
                         >
-                            <h2 className="text-2xl font-bold mb-6 text-white flex items-center gap-2">
-                                <FaRocket className="text-cyan-400" /> Key Features
+                            <h2 className="mb-6 flex items-center gap-2 font-display text-2xl font-bold text-white">
+                                <TbRocket className="text-cyan-300 cosmic-icon-glow" /> Key Features
                             </h2>
-                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
                                 {project.features.map((feature, index) => (
                                     <li key={index} className="flex items-start gap-3">
-                                        <FaCheckCircle className="text-cyan-400 mt-1 flex-shrink-0" />
-                                        <span className="text-neutral-300">{feature}</span>
+                                        <TbCircleCheck className="mt-1 h-4 w-4 flex-shrink-0 text-cyan-300" />
+                                        <span className="text-slate-300">{feature}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -166,16 +183,16 @@ export const ProjectDetail = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5 }}
-                            className="bg-gradient-to-br from-neutral-800/50 to-neutral-900/50 backdrop-blur-sm border border-neutral-700/50 rounded-2xl p-6 lg:p-8 mb-8"
+                            className="surface-card mb-8 rounded-[2rem] p-6 lg:p-8"
                         >
-                            <h2 className="text-2xl font-bold mb-6 text-white flex items-center gap-2">
-                                <FaUsers className="text-purple-400" /> Problems Solved
+                            <h2 className="mb-6 flex items-center gap-2 font-display text-2xl font-bold text-white">
+                                <FaUsers className="text-sky-300" /> Problems Solved
                             </h2>
                             <ul className="space-y-3">
                                 {project.problemsSolved.map((problem, index) => (
                                     <li key={index} className="flex items-start gap-3">
-                                        <span className="text-purple-400 mt-1">▸</span>
-                                        <span className="text-neutral-300">{problem}</span>
+                                        <span className="mt-1 text-cyan-300">-</span>
+                                         <span className="text-slate-300">{problem}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -186,16 +203,16 @@ export const ProjectDetail = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.6 }}
-                            className="bg-gradient-to-br from-neutral-800/50 to-neutral-900/50 backdrop-blur-sm border border-neutral-700/50 rounded-2xl p-6 lg:p-8"
+                            className="surface-card rounded-[2rem] p-6 lg:p-8"
                         >
-                            <h2 className="text-2xl font-bold mb-6 text-white flex items-center gap-2">
-                                <FaCode className="text-cyan-400" /> Technologies Used
+                            <h2 className="mb-6 flex items-center gap-2 font-display text-2xl font-bold text-white">
+                                <TbCode className="text-cyan-300 cosmic-icon-glow" /> Technologies Used
                             </h2>
                             <div className="flex flex-wrap gap-3">
                                 {project.tech.map((tech, index) => (
                                     <span
                                         key={index}
-                                        className="px-4 py-2 bg-gradient-to-r from-cyan-400/20 to-purple-500/20 border border-cyan-400/30 rounded-full text-cyan-300 text-sm font-medium hover:from-cyan-400/30 hover:to-purple-500/30 transition-all duration-300"
+                                        className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-200 transition-all duration-300 hover:bg-cyan-400/15"
                                     >
                                         {tech}
                                     </span>
@@ -209,32 +226,20 @@ export const ProjectDetail = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.7 }}
-                        className="bg-gradient-to-br from-neutral-800/50 to-neutral-900/50 backdrop-blur-sm border border-neutral-700/50 rounded-2xl p-6 lg:p-8 mb-12"
+                        className="surface-card mb-12 rounded-[2rem] p-6 lg:p-8"
                     >
-                        <h2 className="text-2xl font-bold mb-6 text-white">Explore More</h2>
-                        <div className="flex flex-wrap gap-4">
-                            <Link
-                                to="/about"
-                                className="px-4 py-2 bg-neutral-700/50 hover:bg-cyan-400/20 border border-neutral-600 hover:border-cyan-400/50 rounded-lg text-neutral-300 hover:text-cyan-400 transition-all duration-300"
-                            >
+                        <h2 className="mb-6 font-display text-2xl font-bold text-white">Explore More</h2>
+                        <div className="flex flex-wrap gap-3">
+                            <Link to="/about" className="button-ghost !text-sm">
                                 About Me
                             </Link>
-                            <Link
-                                to="/skills"
-                                className="px-4 py-2 bg-neutral-700/50 hover:bg-cyan-400/20 border border-neutral-600 hover:border-cyan-400/50 rounded-lg text-neutral-300 hover:text-cyan-400 transition-all duration-300"
-                            >
+                            <Link to="/skills" className="button-ghost !text-sm">
                                 My Skills
                             </Link>
-                            <Link
-                                to="/projects"
-                                className="px-4 py-2 bg-neutral-700/50 hover:bg-cyan-400/20 border border-neutral-600 hover:border-cyan-400/50 rounded-lg text-neutral-300 hover:text-cyan-400 transition-all duration-300"
-                            >
+                            <Link to="/projects" className="button-ghost !text-sm">
                                 All Projects
                             </Link>
-                            <Link
-                                to="/contact"
-                                className="px-4 py-2 bg-neutral-700/50 hover:bg-cyan-400/20 border border-neutral-600 hover:border-cyan-400/50 rounded-lg text-neutral-300 hover:text-cyan-400 transition-all duration-300"
-                            >
+                            <Link to="/contact" className="button-ghost !text-sm">
                                 Contact Me
                             </Link>
                         </div>
@@ -248,23 +253,23 @@ export const ProjectDetail = () => {
                             transition={{ delay: 0.8 }}
                             className="mb-12"
                         >
-                            <h2 className="text-3xl font-bold mb-8 text-white">Related Projects</h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                            <h2 className="mb-8 font-display text-3xl font-bold text-white">Related Projects</h2>
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
                                 {relatedProjects.map((relatedProject) => (
                                     <Link
                                         key={relatedProject.id}
                                         to={`/projects/${relatedProject.slug}`}
-                                        className="group bg-gradient-to-br from-neutral-800/50 to-neutral-900/50 backdrop-blur-sm border border-neutral-700/50 rounded-xl p-4 sm:p-6 hover:border-cyan-400/50 transition-all duration-300"
+                                        className="surface-card group rounded-[1.5rem] p-4 transition-all duration-300 hover:border-cyan-400/30 sm:p-6"
                                     >
-                                        <div className="w-full aspect-video overflow-hidden rounded-lg mb-4">
+                                        <div className="mb-4 aspect-video w-full overflow-hidden rounded-xl">
                                             <img
                                                 src={relatedProject.img}
                                                 alt={relatedProject.title}
-                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                                                 loading="lazy"
                                             />
                                         </div>
-                                        <h3 className="ml-4 text-xl font-semibold mb-2 text-white group-hover:text-cyan-400 transition-colors">
+                                        <h3 className="mb-2 font-display text-xl font-semibold text-white transition-colors group-hover:text-cyan-300">
                                             {relatedProject.title}
                                         </h3>
                                         {/* <p className="text-neutral-400 text-sm">{relatedProject.subtitle}</p> */}
@@ -275,8 +280,9 @@ export const ProjectDetail = () => {
                     )}
                 </div>
             </main>
+            </section>
 
-            <Footer />
+            <Footer themeClass="theme-detail" />
         </>
     );
 };

@@ -47,7 +47,7 @@ export const SEO = ({
       <meta name="twitter:creator" content="@abhishekmishra0409" />
       
       {/* Additional Meta Tags */}
-      <meta name="theme-color" content="#0c0c1d" />
+      <meta name="theme-color" content="#070b1a" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </Helmet>
   );

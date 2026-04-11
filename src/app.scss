@@ -2,11 +2,10 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Helvetica Neue", Helvetica, Arial;
 }
 
 body {
-  background-color: #0c0c1d;
+  background-color: transparent;
   color: lightgray;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
@@ -141,12 +140,13 @@ section {
         }
 
         button {
-          background-color: orange;
-          border: none;
-          border-radius: 10px;
-          padding: 10px;
+          border: 1px solid rgba(56, 189, 248, 0.35);
+          border-radius: 999px;
+          padding: 10px 16px;
           width: 150px;
-          color: black;
+          color: #eff6ff;
+          background: linear-gradient(90deg, rgba(34, 211, 238, 0.92) 0%, rgba(59, 130, 246, 0.92) 55%, rgba(99, 102, 241, 0.92) 100%);
+          box-shadow: 0 0 28px rgba(34, 211, 238, 0.18), 0 18px 40px rgba(14, 165, 233, 0.2);
         }
       }
     }
@@ -210,12 +210,13 @@ section {
 
     button {
       width: 150px;
-      padding: 10px;
-      border: none;
-      border-radius: 10px;
-      font-weight: 500;
-      background-color: orange;
-      color: #0c0c1d;
+      padding: 10px 16px;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 999px;
+      font-weight: 600;
+      background: linear-gradient(90deg, rgba(34, 211, 238, 0.92) 0%, rgba(59, 130, 246, 0.92) 55%, rgba(99, 102, 241, 0.92) 100%);
+      color: #eff6ff;
+      box-shadow: 0 0 28px rgba(34, 211, 238, 0.18), 0 18px 40px rgba(14, 165, 233, 0.2);
     }
   }
 }
@@ -404,13 +405,18 @@ section {
     }
   }
 
-  // Prevent fixed backgrounds from blocking interactions (except mobile menu)
-  .fixed:not(.mobile-sidebar):not(.bg-neutral-900) {
+  // Prevent fixed backgrounds from blocking interactions (except mobile menu / portaled nav)
+  .fixed:not(.mobile-sidebar):not(.bg-neutral-900):not(.mobile-nav-backdrop):not(.mobile-nav-drawer) {
     pointer-events: none;
 
     * {
       pointer-events: auto;
     }
+  }
+
+  .mobile-nav-backdrop,
+  .mobile-nav-drawer {
+    pointer-events: auto !important;
   }
 
   // Improve button and link touch targets (minimum 44x44px for accessibility)
@@ -448,9 +454,10 @@ section {
     z-index: 50;
   }
 
-  // Mobile sidebar specific fixes
-  .mobile-sidebar {
-    z-index: 9999 !important;
+  // Mobile sidebar specific fixes (includes portaled .mobile-nav-drawer)
+  .mobile-sidebar,
+  .mobile-nav-drawer {
+    z-index: 2147483001 !important;
     position: fixed !important;
     pointer-events: auto !important;
     isolation: isolate; // Create new stacking context

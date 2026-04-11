@@ -12,6 +12,27 @@ import { ProjectDetail } from "./Components/ProjectDetail.jsx";
 import { Footer } from "./Components/Footer.jsx";
 import { SEO } from "./Components/SEO.jsx";
 import { PersonSchema, WebsiteSchema } from "./Components/StructuredData.jsx";
+import { CosmicBackdrop } from "./Components/CosmicBackdrop.jsx";
+
+const pageShellClass = "app-shell site-shell relative min-h-screen overflow-x-hidden text-slate-100";
+const pageContainerClass = "relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8";
+
+const PageFrame = ({ children, contentClassName = "pb-16 pt-6 sm:pt-8 lg:pb-24 lg:pt-10", themeClass = "theme-home" }) => {
+    return (
+        <>
+            <div className={`${pageShellClass} ${themeClass}`}>
+                <CosmicBackdrop />
+                <div className={`${pageContainerClass} pt-4 sm:pt-6`}>
+                    <Navbar />
+                </div>
+                <main className={`${pageContainerClass} ${contentClassName}`}>
+                    {children}
+                </main>
+            </div>
+            <Footer themeClass={themeClass} />
+        </>
+    );
+};
 
 /**
  * Home Page Component
@@ -28,14 +49,9 @@ const HomePage = () => {
             />
             <PersonSchema />
             <WebsiteSchema />
-            <section className={"overflow-x-hidden text-neutral-300 selection:bg-cyan-50 selection:text-cyan-500"}>
-                <div className="fixed top-0 -z-10 h-full w-full bg-gradient-to-b from-neutral-900 to-neutral-800"></div>
-                <div className={"container mx-auto px-8"}>
-                    <Navbar />
-                    <First />
-                </div>
-            </section>
-            <Footer />
+            <PageFrame themeClass="theme-home" contentClassName="pb-12 pt-6 sm:pt-8 lg:pb-16 lg:pt-10">
+                <First />
+            </PageFrame>
         </>
     );
 };
@@ -52,23 +68,9 @@ const AboutPage = () => {
                 keywords="Abhishek Mishra, About, Full Stack Developer, MERN Developer, React Developer, Web Developer, Software Engineer"
                 canonical="https://abmishra.dev/about"
             />
-            <section className={"overflow-x-hidden text-neutral-300 selection:bg-cyan-50 selection:text-cyan-500"}>
-                <div className="fixed top-0 -z-10 h-full w-full bg-gradient-to-b from-neutral-900 to-neutral-800"></div>
-                <div className={"container mx-auto px-8"}>
-                    <Navbar />
-                </div>
-            </section>
-            <section className="bg-neutral-900">
-                <div className="container mx-auto px-8">
-                    <About />
-                </div>
-            </section>
-            <section className="bg-neutral-900">
-                <div className="container mx-auto px-8">
-                    <Experience />
-                </div>
-            </section>
-            <Footer />
+            <PageFrame themeClass="theme-about" contentClassName="space-y-8 pb-16 pt-4 sm:space-y-10 lg:space-y-12 lg:pb-24 lg:pt-8">
+                <About />
+            </PageFrame>
         </>
     );
 };
@@ -85,18 +87,9 @@ const ExperiencePage = () => {
                 keywords="Abhishek Mishra, Experience, BestPeers Infosystem, Software Developer, Web Developer, Team Leader, ADM, Freelance Developer"
                 canonical="https://abmishra.dev/experience"
             />
-            <section className={"overflow-x-hidden text-neutral-300 selection:bg-cyan-50 selection:text-cyan-500"}>
-                <div className="fixed top-0 -z-10 h-full w-full bg-gradient-to-b from-neutral-900 to-neutral-800"></div>
-                <div className={"container mx-auto px-8"}>
-                    <Navbar />
-                </div>
-            </section>
-            <section className="bg-neutral-900 ">
-                <div className="container mx-auto px-8">
-                    <Experience />
-                </div>
-            </section>
-            <Footer />
+            <PageFrame themeClass="theme-experience" contentClassName="pb-16 pt-4 lg:pb-24 lg:pt-8">
+                <Experience />
+            </PageFrame>
         </>
     );
 };
@@ -113,18 +106,9 @@ const SkillsPage = () => {
                 keywords="Abhishek Mishra, Skills, Technologies, React, Node.js, MongoDB, Express, Angular, Next.js, TypeScript, MERN Stack, Full Stack Developer"
                 canonical="https://abmishra.dev/skills"
             />
-            <section className={"overflow-x-hidden text-neutral-300 selection:bg-cyan-50 selection:text-cyan-500"}>
-                <div className="fixed top-0 -z-10 h-full w-full bg-gradient-to-b from-neutral-900 to-neutral-800"></div>
-                <div className={"container mx-auto px-8"}>
-                    <Navbar />
-                </div>
-            </section>
-            <section className="bg-neutral-900 py-2">
-                <div className="container mx-auto px-8">
-                    <Technology />
-                </div>
-            </section>
-            <Footer />
+            <PageFrame themeClass="theme-skills" contentClassName="pb-16 pt-4 lg:pb-24 lg:pt-8">
+                <Technology />
+            </PageFrame>
         </>
     );
 };
@@ -141,18 +125,9 @@ const ProjectsPage = () => {
                 keywords="Abhishek Mishra, Projects, Portfolio, VirtualCart, MedGo, Chat App, Job Portal, MERN Stack Projects, React Projects, Full Stack Projects"
                 canonical="https://abmishra.dev/projects"
             />
-            <section className={"overflow-x-hidden text-neutral-300 selection:bg-cyan-50 selection:text-cyan-500"}>
-                <div className="fixed top-0 -z-10 h-full w-full bg-gradient-to-b from-neutral-900 to-neutral-800"></div>
-                <div className={"container mx-auto px-8"}>
-                    <Navbar />
-                </div>
-            </section>
-            <section className="bg-neutral-900 ">
-                <div className="container mx-auto px-8">
-                    <Portfolio />
-                </div>
-            </section>
-            <Footer />
+            <PageFrame themeClass="theme-projects" contentClassName="pb-16 pt-4 lg:pb-24 lg:pt-8">
+                <Portfolio />
+            </PageFrame>
         </>
     );
 };
@@ -169,18 +144,9 @@ const ContactPage = () => {
                 keywords="Abhishek Mishra, Contact, Get In Touch, Full Stack Developer, Hire Developer, Freelance Developer, React Developer"
                 canonical="https://abmishra.dev/contact"
             />
-            <section className={"overflow-x-hidden text-neutral-300 selection:bg-cyan-50 selection:text-cyan-500"}>
-                <div className="fixed top-0 -z-10 h-full w-full bg-gradient-to-b from-neutral-900 to-neutral-800"></div>
-                <div className={"container mx-auto px-8"}>
-                    <Navbar />
-                </div>
-            </section>
-            <section id="contactSection" className="bg-neutral-900">
-                <div className="container mx-auto px-8">
-                    <Contact />
-                </div>
-            </section>
-            <Footer />
+            <PageFrame themeClass="theme-contact" contentClassName="pb-16 pt-4 lg:pb-24 lg:pt-8">
+                <Contact />
+            </PageFrame>
         </>
     );
 };
