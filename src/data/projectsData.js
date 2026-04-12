@@ -12,6 +12,15 @@ import Project_6 from "../assets/projects/Project-6.png";
 import MedGo from "../assets/projects/MedGo.png";
 import ChatApp from "../assets/projects/ChatApp.png";
 import JobPortal from "../assets/projects/JobPortal.png";
+import VirtualCart1 from "../assets/projects/VirtualCart1.png";
+import Medgo1 from "../assets/projects/Medgo1.png";
+import ChatApplication from "../assets/projects/ChatApplication.png";
+import JobPortal1 from "../assets/projects/JobPortal1.png";
+import Taaruntam2k23 from "../assets/projects/Taaruntam2k23.png";
+import Taarunyam2k22 from "../assets/projects/Taarunyam2k22.png";
+import ERP from "../assets/projects/ERP.png";
+import CourseExitSurvey from "../assets/projects/CourseExitSurvey.png";
+import MaaFoundation from "../assets/projects/MaaFoundation.png";
 
 export const projectsData = [
     {
@@ -20,31 +29,35 @@ export const projectsData = [
         title: "VirtualCart",
         subtitle: "MERN Stack E-commerce Platform",
         img: Project_1,
-        desc: "VirtualCart is a full-featured e-commerce platform built with the MERN stack. The application provides a seamless shopping experience with modern design, intuitive navigation, and robust functionality for both customers and administrators.",
-        longDesc: "VirtualCart is a comprehensive e-commerce solution that addresses the growing need for online shopping platforms. Built using MongoDB, Express.js, React, and Node.js, this project demonstrates full-stack development capabilities. The platform features product catalog management, shopping cart functionality, user authentication, payment integration, and order management. The modern and visually appealing design ensures an excellent user experience, while the scalable architecture supports high traffic and future expansion.",
+        detailImg: VirtualCart1,
+        detailFrameClass: "",
+        detailImageClass: "h-auto w-full object-contain",
+        desc: "VirtualCart is a production-style e-commerce platform built with the MERN stack, focused on smooth product discovery, organized category browsing, and a polished shopping experience from landing page to checkout flow.",
+        longDesc: "VirtualCart is a full-stack e-commerce application built with MongoDB, Express.js, React, and Node.js to simulate a modern online store experience. The project combines storefront design with practical commerce features such as featured collections, category-led navigation, product filtering, wishlist support, cart flow, and payment-ready checkout. It is structured to feel like a real electronics marketplace, with promotional sections, searchable inventory, and responsive layouts that work across devices. On the backend, the project handles product management, user access, order flow, and media handling through Cloudinary, making it a strong demonstration of both frontend polish and full-stack commerce logic.",
         features: [
-            "Product catalog with categories and search functionality",
-            "Shopping cart with add/remove/update capabilities",
-            "User authentication and authorization",
-            "Secure payment processing",
-            "Order tracking and management",
-            "Admin dashboard for product management",
-            "Responsive design for all devices",
-            "Image upload and management with Cloudinary"
+            "Featured homepage merchandising with promotional banners and collection sections",
+            "Product catalog with category browsing, search, and filter support",
+            "Shopping cart with add, update, and remove functionality",
+            "Wishlist flow for saving products before purchase",
+            "User authentication and protected account flow",
+            "Order handling and customer purchase management",
+            "Payment-ready commerce experience for online transactions",
+            "Cloudinary-based image upload and media management",
+            "Responsive storefront layout across desktop and smaller screens"
         ],
         problemsSolved: [
-            "Simplified online shopping experience for customers",
-            "Streamlined inventory and order management for businesses",
-            "Reduced manual processing time with automated systems",
-            "Improved customer engagement through modern UI/UX"
+            "Made product discovery easier with cleaner category structure and storefront merchandising",
+            "Improved the customer buying journey through cart, wishlist, and checkout flow",
+            "Reduced manual store-management effort with connected full-stack logic",
+            "Created a more modern and engaging online shopping experience"
         ],
-        tech: ["JavaScript", "React", "HTML", "CSS", "Node.js", "Express", "MongoDB", "Cloudinary"],
+        tech: ["JavaScript", "React", "HTML", "CSS", "Node.js", "Express", "MongoDB", "Cloudinary", "Stripe", "Razorpay"],
         stack: "MERN Stack",
         link: "https://virtual-cart-97la.vercel.app/",
         github: "https://github.com/abhishekmishra0409",
-        keywords: "VirtualCart, MERN Stack E-commerce, React E-commerce, Node.js Shopping Platform, MongoDB E-commerce, Abhishek Mishra Projects",
+        keywords: "VirtualCart, MERN Stack E-commerce, React E-commerce, Node.js Shopping Platform, MongoDB E-commerce, Online Store Project, Stripe, Razorpay, Abhishek Mishra Projects",
         seoTitle: "VirtualCart – MERN Stack E-commerce Project by Abhishek Mishra",
-        seoDescription: "VirtualCart is a full-featured MERN stack e-commerce platform developed by Abhishek Mishra. Features include product management, shopping cart, payment processing, and admin dashboard. Built with React, Node.js, Express, and MongoDB.",
+        seoDescription: "VirtualCart is a MERN stack e-commerce project developed by Abhishek Mishra. It includes category browsing, cart and wishlist flow, payment-ready checkout, and full-stack store management with React, Node.js, Express, and MongoDB.",
         category: "E-commerce"
     },
     {
@@ -53,6 +66,9 @@ export const projectsData = [
         title: "DawaiLink | MedGo",
         subtitle: "Telemedicine Platform",
         img: MedGo,
+        detailImg: Medgo1,
+        detailFrameClass: "",
+        detailImageClass: "h-auto w-full object-contain",
         desc: "MedGo is a telemedicine platform that connects patients with healthcare professionals for online consultations. It offers features like appointment scheduling, communication between patients, doctors, and prescription management, making healthcare more accessible and convenient.",
         longDesc: "MedGo (DawaiLink) revolutionizes healthcare accessibility by providing a comprehensive telemedicine platform. This MERN stack application enables patients to consult with doctors remotely, schedule appointments, receive prescriptions, and manage their health records online. The platform addresses the critical need for accessible healthcare, especially in remote areas. Features include real-time video consultations, secure messaging, appointment management, prescription generation, and patient history tracking. The application uses WebSocket for real-time communication and Cloudinary for medical document storage.",
         features: [
@@ -86,6 +102,9 @@ export const projectsData = [
         title: "Real-Time Chat Application",
         subtitle: "MEAN Stack Chat Platform",
         img: ChatApp,
+        detailImg: ChatApplication,
+        detailFrameClass: "",
+        detailImageClass: "h-auto w-full object-contain",
         desc: "A modern real-time chat application with features like direct messaging, group chats, file sharing, and read receipts. Built with a focus on performance and user experience with secure authentication and responsive design.",
         longDesc: "This real-time chat application demonstrates advanced full-stack development using the MEAN stack (MongoDB, Express, Angular, Node.js). The application provides instant messaging capabilities with real-time updates using Socket.io. Users can create accounts, send direct messages, participate in group chats, share files, and see read receipts. The application features JWT-based authentication, responsive design, and optimized performance for seamless communication. This project showcases expertise in real-time web applications and modern frontend frameworks.",
         features: [
@@ -119,6 +138,9 @@ export const projectsData = [
         title: "Job Portal Application",
         subtitle: "MERN Stack Job Search Platform",
         img: JobPortal,
+        detailImg: JobPortal1,
+        detailFrameClass: "",
+        detailImageClass: "h-auto w-full object-contain",
         desc: "A comprehensive job search platform connecting employers with job seekers. Features include job postings, resume uploads, application tracking, employer dashboards, and advanced search filters with AI-based job recommendations.",
         longDesc: "This job portal application is a complete recruitment solution built with the MERN stack. The platform serves both job seekers and employers, providing a seamless experience for job searching, application management, and candidate screening. Features include advanced search filters, AI-based job recommendations, resume management, application tracking, employer dashboards, and analytics. The application uses Redux for state management, JWT for authentication, and Cloudinary for document storage. This project demonstrates expertise in building complex, multi-user applications with role-based access control.",
         features: [
@@ -152,6 +174,9 @@ export const projectsData = [
         title: "Taarunyam 2K23",
         subtitle: "College Techfest Website",
         img: Project_2,
+        detailImg: Taaruntam2k23,
+        detailFrameClass: "",
+        detailImageClass: "h-auto w-full object-contain",
         desc: "Created an interactive website to showcase information about the college's annual techfest, providing details on events, schedules, and participant registration. The platform enhanced the visibility and engagement of the techfest among students.",
         longDesc: "Taarunyam 2K23 is an interactive website created for the college's annual technical festival. The platform serves as a central hub for all techfest-related information, including event schedules, registration, participant information, and live updates. Built with React and modern web technologies, the website features a dynamic event calendar, registration system, and engaging UI/UX design. The platform significantly improved student engagement and streamlined event management for the organizing committee.",
         features: [
@@ -185,6 +210,9 @@ export const projectsData = [
         title: "Taarunyam 2k22",
         subtitle: "College Techfest Website",
         img: Project_3,
+        detailImg: Taarunyam2k22,
+        detailFrameClass: "",
+        detailImageClass: "h-auto w-full object-contain",
         desc: "An earlier version of the college techfest website showcasing event information and registration. The design is modern and visually appealing with effective navigation and user experience.",
         longDesc: "Taarunyam 2k22 was the first iteration of the college techfest website, built with vanilla JavaScript, HTML, and CSS. This project laid the foundation for the improved 2K23 version. The website provided essential information about the techfest events, schedules, and registration. Despite being built with basic technologies, the website featured modern design principles and responsive layout, demonstrating early web development skills.",
         features: [
@@ -214,6 +242,9 @@ export const projectsData = [
         title: "ERP Login",
         subtitle: "College ERP Portal",
         img: Project_4,
+        detailImg: ERP,
+        detailFrameClass: "",
+        detailImageClass: "h-auto w-full object-contain",
         desc: "The College ERP Login Portal provides students with secure access to academic resources, including grades, attendance, timetable, and notification of events. Through interactive features like online assignments and communication channels, students can engage with teachers and peers effectively. The portal streamlines administrative tasks, enhances transparency, and fosters a collaborative learning environment.",
         longDesc: "The College ERP Login Portal is a comprehensive student information system built with the MERN stack. This application provides students with secure access to their academic information, including grades, attendance records, class timetables, and event notifications. The portal features online assignment submission, communication channels between students and teachers, and administrative tools. Built with React for the frontend and Node.js/Express for the backend, the application uses MongoDB for data storage and Cloudinary for document management. This project demonstrates expertise in building secure, role-based applications for educational institutions.",
         features: [
@@ -247,6 +278,9 @@ export const projectsData = [
         title: "Course Exit Survey & Feedback Form",
         subtitle: "Student Feedback Platform",
         img: Project_5,
+        detailImg: CourseExitSurvey,
+        detailFrameClass: "",
+        detailImageClass: "h-auto w-full object-contain",
         desc: "A platform for students to provide feedback and complete exit surveys for their courses. The application allows students to fill out forms with ease and provides insights into course experiences and areas for improvement.",
         longDesc: "The Course Exit Survey & Feedback Form is a comprehensive feedback collection system built with the MERN stack. This application enables educational institutions to gather valuable feedback from students about their course experiences. The platform features customizable survey forms, data analytics, and reporting tools. Students can easily provide feedback on course content, teaching methods, and overall experience. The application uses React for an intuitive user interface, Node.js/Express for backend processing, and MongoDB for data storage. This project demonstrates expertise in building data collection and analysis applications.",
         features: [
@@ -280,6 +314,9 @@ export const projectsData = [
         title: "Maa Foundation",
         subtitle: "NGO Website Platform",
         img: Project_6,
+        detailImg: MaaFoundation,
+        detailFrameClass: "",
+        detailImageClass: "h-auto w-full object-contain",
         desc: "Maa Foundation is an NGO focused on empowering communities through education, healthcare, and sustainable development. Dedicated to creating lasting positive change, the foundation strives to uplift lives across India.",
         longDesc: "Maa Foundation is a comprehensive NGO website platform built with the MERN stack. The website serves as a digital presence for the foundation, showcasing their initiatives in education, healthcare, and sustainable development. The platform features donation integration with RazorPay, project showcases, volunteer registration, event management, and content management. Built with React for the frontend and Node.js/Express for the backend, the application uses MongoDB for data storage and Cloudinary for media management. This project demonstrates expertise in building platforms for social causes and non-profit organizations.",
         features: [

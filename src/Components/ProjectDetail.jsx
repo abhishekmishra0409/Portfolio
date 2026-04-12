@@ -56,6 +56,9 @@ export const ProjectDetail = () => {
     const relatedProjects = projectsData
         .filter(p => p.id !== project.id && (p.category === project.category || p.stack === project.stack))
         .slice(0, 3);
+    const detailFrameClass = project.detailFrameClass ?? "";
+    const detailImageClass = project.detailImageClass ?? "h-auto w-full";
+    const detailImage = project.detailImg ?? project.img;
 
     return (
         <>
@@ -112,7 +115,7 @@ export const ProjectDetail = () => {
                                     rel="noopener noreferrer"
                                     className="button-primary"
                                 >
-                                    <FaExternalLinkAlt /> View Live Demo
+                                    <TbExternalLink className="text-lg" /> View Live Demo
                                 </a>
                                 {project.github && (
                                     <a
@@ -133,12 +136,12 @@ export const ProjectDetail = () => {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.2 }}
-                        className="surface-card mb-12 overflow-hidden rounded-[2rem] p-3 shadow-2xl"
+                        className={`surface-card mb-12 overflow-hidden rounded-[2rem] p-3 shadow-2xl ${detailFrameClass}`}
                     >
                         <img
-                            src={project.img}
+                            src={detailImage}
                             alt={`${project.title} - ${project.subtitle} by Abhishek Mishra`}
-                            className="h-auto w-full rounded-[1.5rem] border border-white/10"
+                            className={`${detailImageClass} rounded-[1.5rem] border border-white/10`}
                             loading="eager"
                             width="1200"
                             height="675"
@@ -186,7 +189,7 @@ export const ProjectDetail = () => {
                             className="surface-card mb-8 rounded-[2rem] p-6 lg:p-8"
                         >
                             <h2 className="mb-6 flex items-center gap-2 font-display text-2xl font-bold text-white">
-                                <FaUsers className="text-sky-300" /> Problems Solved
+                                <TbUsersGroup className="text-sky-300 cosmic-icon-glow" /> Problems Solved
                             </h2>
                             <ul className="space-y-3">
                                 {project.problemsSolved.map((problem, index) => (
