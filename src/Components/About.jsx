@@ -1,11 +1,6 @@
 import { motion } from "framer-motion";
-import { TbComet } from "react-icons/tb";
 import { AboutTimeline } from "./AboutTimeline.jsx";
 
-/**
- * About Section Component
- * Displays information about Abhishek Mishra with about-page highlights
- */
 export const About = () => {
     const strengths = [
         "Product-minded frontend implementation",
@@ -16,8 +11,8 @@ export const About = () => {
     const overviewCards = [
         {
             title: "Current Role",
-            value: "Software / Web Developer",
-            detail: "BestPeers Infosystem",
+            value: "Junior Software Engineer",
+            detail: "BestPeers Technology Solutions",
         },
         {
             title: "Primary Stack",
@@ -39,9 +34,8 @@ export const About = () => {
                 transition={{ duration: 0.7 }}
                 className="mx-auto mb-12 max-w-3xl text-center lg:mb-16"
             >
-                <p className="space-eyebrow justify-center">Habitat Ring · Origin</p>
-                <h1 className="mt-5 flex flex-wrap items-center justify-center gap-3 font-display text-4xl font-bold text-white sm:text-5xl">
-                    <TbComet className="h-9 w-9 shrink-0 text-teal-300/95 cosmic-icon-glow sm:h-11 sm:w-11" aria-hidden />
+                <p className="space-eyebrow justify-center">About</p>
+                <h1 className="mt-5 font-display text-4xl font-bold text-white sm:text-5xl">
                     Bringing product clarity to full-stack builds.
                 </h1>
                 <p className="mt-4 text-base leading-8 text-slate-300 sm:text-lg">
@@ -58,21 +52,36 @@ export const About = () => {
                 >
                     <div className="surface-card w-full max-w-3xl rounded-[2rem] p-6 lg:p-8">
                         <h2 className="font-display text-2xl font-semibold text-white lg:text-3xl">
-                            Abhishek Mishra, a developer who likes thoughtful interfaces and strong foundations.
+                            A developer who likes thoughtful interfaces and strong foundations.
                         </h2>
                         <p className="mt-5 text-base leading-8 text-slate-300 sm:text-lg">
-                            I&apos;m <strong className="text-cyan-300">Abhishek Mishra</strong>, a full stack developer focused on building dynamic, responsive, and user-friendly web applications that balance product polish with maintainable engineering.
+                            I&apos;m <strong className="text-indigo-300">Abhishek Mishra</strong>, a full stack developer
+                            focused on building dynamic, responsive, and user-friendly web applications that
+                            balance product polish with maintainable engineering.
                         </p>
                         <p className="mt-4 text-base leading-8 text-slate-400 sm:text-lg">
-                            With hands-on experience in <strong className="text-slate-200">React</strong>, <strong className="text-slate-200">Node.js</strong>, <strong className="text-slate-200">MongoDB</strong>, <strong className="text-slate-200">Express.js</strong>, <strong className="text-slate-200">JavaScript</strong>, <strong className="text-slate-200">Java</strong>, and <strong className="text-slate-200">Python</strong>, I enjoy turning messy requirements into clean user experiences and scalable systems.
+                            With hands-on experience in{" "}
+                            <strong className="text-slate-200">React</strong>,{" "}
+                            <strong className="text-slate-200">Node.js</strong>,{" "}
+                            <strong className="text-slate-200">MongoDB</strong>,{" "}
+                            <strong className="text-slate-200">Express.js</strong>,{" "}
+                            <strong className="text-slate-200">JavaScript</strong>,{" "}
+                            <strong className="text-slate-200">Java</strong>, and{" "}
+                            <strong className="text-slate-200">Python</strong>, I enjoy turning messy requirements
+                            into clean user experiences and scalable systems.
                         </p>
                         <p className="mt-4 text-base leading-8 text-slate-400 sm:text-lg">
-                            Currently working as a <strong className="text-sky-300">Software / Web Developer at BestPeers Infosystem</strong>, I focus on building modern web products that feel fast, reliable, and ready to grow. Let&apos;s build something sharp together.
+                            Currently working as a{" "}
+                            <strong className="text-slate-200">Junior Software Engineer at BestPeers Technology Solutions</strong>,
+                            I focus on building modern web products that feel fast, reliable, and ready to grow.
                         </p>
 
                         <div className="mt-8 grid gap-3 sm:grid-cols-2">
                             {strengths.map((strength) => (
-                                <div key={strength} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm leading-6 text-slate-300">
+                                <div
+                                    key={strength}
+                                    className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm leading-6 text-slate-300"
+                                >
                                     {strength}
                                 </div>
                             ))}
@@ -87,12 +96,13 @@ export const About = () => {
                     className="grid gap-4"
                 >
                     <div className="surface-card rounded-[2rem] p-6 lg:p-7">
-                        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">How I Work</p>
+                        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-300">How I Work</p>
                         <h3 className="mt-4 font-display text-2xl font-semibold text-white">
                             Designing interfaces and engineering the systems behind them.
                         </h3>
                         <p className="mt-4 text-sm leading-7 text-slate-300 sm:text-base">
-                            I enjoy working where frontend clarity, backend reliability, and real product constraints need to come together in one practical build.
+                            I enjoy working where frontend clarity, backend reliability, and real product
+                            constraints need to come together in one practical build.
                         </p>
                     </div>
 

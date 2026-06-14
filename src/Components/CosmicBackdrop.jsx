@@ -1,9 +1,7 @@
 /**
- * Fixed starfield + extra nebula / comet / twinkle layers (pointer-events: none).
+ * Minimal clean backdrop — replaces the old cosmic star-field layers.
+ * The visual is driven entirely by .site-backdrop in index.css.
  */
 export const CosmicBackdrop = () => (
-    <>
-        <div aria-hidden="true" className="site-backdrop" />
-        <div aria-hidden="true" className="cosmic-overlays" />
-    </>
+    <div aria-hidden="true" className="site-backdrop" />
 );

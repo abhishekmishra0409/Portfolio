@@ -1,17 +1,15 @@
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { TbTelescope } from "react-icons/tb";
 import { PortfolioProjectSchema } from "./StructuredData.jsx";
 import { projectsData } from "../data/projectsData.js";
 
 const items = projectsData;
 
-
 const Single = ({ item }) => {
     const ref = useRef();
-    const { scrollYProgress } = useScroll({ target: ref, })
-    const y = useTransform(scrollYProgress, [0, 1], [-60, 60])
+    const { scrollYProgress } = useScroll({ target: ref });
+    const y = useTransform(scrollYProgress, [0, 1], [-60, 60]);
 
     return (
         <article
@@ -21,11 +19,11 @@ const Single = ({ item }) => {
         >
             <div className="group w-full min-w-0 max-w-xl justify-self-center lg:max-w-none" ref={ref}>
                 <div className="relative overflow-hidden rounded-[1.75rem] shadow-2xl">
-                    <div className="absolute inset-0 z-10 bg-gradient-to-r from-cyan-400/20 via-sky-400/15 to-indigo-500/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                    <div className="absolute inset-0 z-10 bg-indigo-500/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                     <img
                         className="h-full w-full rounded-[1.75rem] border border-white/10 object-cover transition-transform duration-300 group-hover:scale-105"
                         src={item.img}
-                        alt={`${item.title} - Project by Abhishek Mishra, Full Stack Developer`}
+                        alt={`${item.title} — project by Abhishek Mishra`}
                         loading="lazy"
                         width="800"
                         height="600"
@@ -33,6 +31,7 @@ const Single = ({ item }) => {
                     />
                 </div>
             </div>
+
             <motion.div
                 className="flex min-w-0 flex-col gap-6 text-center lg:text-left"
                 style={{ y }}
@@ -43,36 +42,36 @@ const Single = ({ item }) => {
                 <div className="surface-card w-full rounded-[1.75rem] p-6 lg:p-8">
                     <Link to={`/projects/${item.slug}`}>
                         <h2
-                            className="mb-4 font-display text-3xl font-semibold text-gradient transition-colors cursor-pointer lg:text-4xl"
+                            className="mb-4 cursor-pointer font-display text-3xl font-semibold text-gradient transition-colors lg:text-4xl"
                             itemProp="name"
                         >
                             {item.title}
                         </h2>
                     </Link>
                     {item.subtitle && (
-                        <p className="mb-2 text-sm font-medium text-cyan-300">{item.subtitle}</p>
+                        <p className="mb-2 text-sm font-medium text-indigo-300">{item.subtitle}</p>
                     )}
-                    <p className="mb-6 text-lg leading-relaxed text-slate-300" itemProp="description">{item.desc}</p>
+                    <p className="mb-6 text-lg leading-relaxed text-slate-300" itemProp="description">
+                        {item.desc}
+                    </p>
                     <div className="mb-6 flex flex-wrap justify-center gap-2 lg:justify-start">
                         {item.tech.map((tech, index) => (
                             <motion.span
                                 key={index}
-                                whileHover={{ scale: 1.1 }}
-                                className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-200 transition-all duration-300 hover:bg-cyan-400/15"
+                                whileHover={{ scale: 1.08 }}
+                                className="rounded-full border border-indigo-400/20 bg-indigo-400/10 px-4 py-2 text-sm font-medium text-indigo-200 transition-all duration-300 hover:bg-indigo-400/15"
                             >
                                 {tech}
                             </motion.span>
                         ))}
                     </div>
                     <div className="flex flex-wrap gap-3">
-                        <Link
-                            to={`/projects/${item.slug}`}
-                            className="w-full sm:w-auto inline-block"
-                        >
+                        <Link to={`/projects/${item.slug}`} className="w-full sm:w-auto inline-block">
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="button-secondary w-full sm:w-auto">
+                                className="button-secondary w-full sm:w-auto"
+                            >
                                 View Details
                             </motion.button>
                         </Link>
@@ -86,7 +85,8 @@ const Single = ({ item }) => {
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="button-primary w-full sm:w-auto">
+                                    className="button-primary w-full sm:w-auto"
+                                >
                                     Live Demo
                                 </motion.button>
                             </a>
@@ -95,42 +95,36 @@ const Single = ({ item }) => {
                 </div>
             </motion.div>
         </article>
-    )
-}
+    );
+};
 
-/**
- * Portfolio Section Component
- * Displays featured projects with structured data for SEO
- */
 export const Portfolio = () => {
     const ref = useRef();
-    const { scrollYProgress } = useScroll({ target: ref, offset: ["end end", "start start"] })
-    const scaleX = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
-    })
+    const { scrollYProgress } = useScroll({ target: ref, offset: ["end end", "start start"] });
+    const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
     return (
-        <section className={"portfolio "} ref={ref}>
+        <section className="portfolio" ref={ref}>
             <PortfolioProjectSchema projects={items} />
             <div className="progress sticky left-0 top-20 z-10 py-3">
                 <div className="mx-auto max-w-4xl px-5 py-2 text-center lg:px-8">
-                    <p className="space-eyebrow justify-center">Dock Bay · Mission Archive</p>
-                    <h1 className="mt-4 flex flex-wrap items-center justify-center gap-3 font-display text-3xl font-bold text-white sm:text-4xl lg:text-[2.75rem]">
-                        <TbTelescope className="h-9 w-9 text-cyan-300/90 cosmic-icon-glow sm:h-10 sm:w-10" aria-hidden />
-                        Featured Works
+                    <p className="space-eyebrow justify-center">Projects</p>
+                    <h1 className="mt-4 font-display text-3xl font-bold text-white sm:text-4xl lg:text-[2.75rem]">
+                        Featured Projects
                     </h1>
-                    <p className="mt-3 text-sm text-slate-400 lg:text-base">Scroll the station log — each row is a shipped build.</p>
+                    <p className="mt-3 text-sm text-slate-400 lg:text-base">
+                        A selection of projects built end to end — from design to deployment.
+                    </p>
                 </div>
                 <motion.div
                     style={{ scaleX }}
-                    className="progressBar mx-auto mt-3 h-1.5 max-w-2xl rounded-full bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500"
+                    className="progressBar mx-auto mt-3 h-1.5 max-w-2xl rounded-full"
                     aria-hidden="true"
-                ></motion.div>
+                />
             </div>
             {items.map((item) => (
                 <Single item={item} key={item.id} />
             ))}
         </section>
-    )
-}
+    );
+};
