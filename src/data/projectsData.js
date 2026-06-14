@@ -21,8 +21,50 @@ import Taarunyam2k22 from "../assets/projects/Taarunyam2k22.png";
 import ERP from "../assets/projects/ERP.png";
 import CourseExitSurvey from "../assets/projects/CourseExitSurvey.png";
 import MaaFoundation from "../assets/projects/MaaFoundation.png";
+import Servora from "../assets/projects/Servora.png";
 
 export const projectsData = [
+    {
+        id: 10,
+        slug: "servora-restaurant-saas-platform",
+        title: "Servora",
+        subtitle: "Full-Stack Multi-Tenant Restaurant SaaS Platform",
+        img: Servora,
+        detailImg: Servora,
+        detailFrameClass: "",
+        detailImageClass: "h-auto w-full object-contain",
+        desc: "Servora is a multi-tenant restaurant SaaS platform built as a monorepo — covering QR-based table ordering, real-time kitchen displays, staff operations, and subscription billing across 6 independent apps.",
+        longDesc: "Servora is an enterprise-grade SaaS platform for restaurant groups, built with full TypeScript end-to-end across six independent apps sharing a common types package. The architecture spans a NestJS 11 REST API with 15 domain modules and 18 MongoDB schemas, a Next.js 16 web app serving both the admin CMS and customer PWA, two Vite React staff apps (waiter and kitchen display), a dedicated Socket.IO realtime gateway backed by Redis Streams for horizontal scaling, and a BullMQ background worker for async jobs. Multi-tenant isolation is enforced at the query level with a 7-role RBAC permission matrix. Customers scan a tokenized QR code to join a table session, browse the menu, place orders idempotently, track their order in real time, and pay via Stripe or cash. Restaurant staff manage operations through the admin CMS — from menu and floor plan configuration to live order monitoring and subscription billing. The waiter and kitchen apps give floor staff and kitchen teams live ticket feeds without manual refresh, powered by Socket.IO room-based events.",
+        features: [
+            "Multi-tenant architecture with full data isolation per restaurant group",
+            "7-role RBAC — platform_admin, owner, manager, waiter, kitchen, cashier, guest",
+            "Customer PWA — QR scan, shared table bucket, real-time order tracking, Stripe payment",
+            "Admin CMS — live dashboard, menu management, floor plan, QR code generation, analytics",
+            "Kitchen Display System — live ticket board with one-tap status control",
+            "Waiter App — service queue, bill requests, table session view",
+            "Socket.IO realtime gateway with Redis Streams adapter for horizontal scale",
+            "BullMQ background queues — notifications, cleanup, billing, media",
+            "Stripe subscriptions with 3-tier plans, webhook processing, invoice management",
+            "Idempotent API design — safe retries and exactly-once order semantics",
+            "Docker Compose orchestration across 6 services with health checks",
+            "Playwright E2E tests, Jest API tests, Vitest unit tests, GitHub Actions CI"
+        ],
+        problemsSolved: [
+            "Unified the entire restaurant operation — from customer QR scan to kitchen ticket — in a single, cohesive platform",
+            "Eliminated duplicate orders and missed updates through idempotent endpoints and real-time WebSocket sync",
+            "Enabled restaurant groups to manage multiple branches under one subscription with strict tenant isolation",
+            "Reduced manual coordination between floor staff and kitchen with live Socket.IO-powered ticket boards",
+            "Streamlined subscription billing and invoice management through integrated Stripe webhook lifecycle"
+        ],
+        tech: ["TypeScript", "NestJS", "Next.js", "React", "Vite", "MongoDB", "Redis", "Socket.IO", "BullMQ", "Stripe", "Cloudinary", "Docker", "Tailwind CSS", "JWT", "Playwright", "Jest"],
+        stack: "NestJS + Next.js + Vite",
+        link: null,
+        github: "https://github.com/abhishekmishra0409/Servora",
+        keywords: "Servora, Restaurant SaaS Platform, Multi-Tenant Restaurant App, NestJS Restaurant, Next.js Restaurant Management, Full-Stack SaaS, Socket.IO Realtime, BullMQ, Stripe Subscriptions, Abhishek Mishra Projects",
+        seoTitle: "Servora – Full-Stack Multi-Tenant Restaurant SaaS Platform by Abhishek Mishra",
+        seoDescription: "Servora is a production-ready multi-tenant restaurant SaaS platform developed by Abhishek Mishra. Built as a monorepo with NestJS, Next.js, Vite React, MongoDB, Redis, Socket.IO, Stripe, and Docker. Covers QR ordering, kitchen display, real-time updates, and subscription billing.",
+        category: "SaaS"
+    },
     {
         id: 1,
         slug: "virtual-cart-mern-ecommerce",

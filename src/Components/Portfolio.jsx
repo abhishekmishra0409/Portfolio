@@ -76,19 +76,21 @@ const Single = ({ item }) => {
                                 View Details
                             </motion.button>
                         </Link>
-                        <a
-                            href={item.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full sm:w-auto inline-block"
-                        >
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="button-primary w-full sm:w-auto">
-                                Live Demo
-                            </motion.button>
-                        </a>
+                        {item.link && (
+                            <a
+                                href={item.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full sm:w-auto inline-block"
+                            >
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="button-primary w-full sm:w-auto">
+                                    Live Demo
+                                </motion.button>
+                            </a>
+                        )}
                     </div>
                 </div>
             </motion.div>

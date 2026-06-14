@@ -109,14 +109,16 @@ export const ProjectDetail = () => {
 
                             {/* Action Buttons */}
                             <div className="flex flex-wrap gap-4">
-                                <a
-                                    href={project.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="button-primary"
-                                >
-                                    <TbExternalLink className="text-lg" /> View Live Demo
-                                </a>
+                                {project.link && (
+                                    <a
+                                        href={project.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="button-primary"
+                                    >
+                                        <TbExternalLink className="text-lg" /> View Live Demo
+                                    </a>
+                                )}
                                 {project.github && (
                                     <a
                                         href={project.github}
