@@ -127,7 +127,7 @@ export const AboutTimeline = () => {
                 <div className="absolute left-1/2 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-blue-500 via-blue-400 to-blue-600 lg:block" />
                 <div className="absolute bottom-0 left-4 top-0 w-px bg-gradient-to-b from-blue-500 to-blue-600 lg:hidden" />
 
-                <div className={`ml-12 w-full lg:ml-0 lg:w-5/12 ${isEven ? "lg:mr-auto lg:pr-8" : "lg:ml-auto lg:pl-8"}`}>
+                <div className={`ml-12 w-[calc(100%-3rem)] lg:ml-0 lg:w-5/12 ${isEven ? "lg:mr-auto lg:pr-8" : "lg:ml-auto lg:pl-8"}`}>
                     <motion.div
                         whileHover={{ y: -3 }}
                         className="surface-card rounded-2xl p-5 transition-all duration-300 hover:border-blue-400/20"

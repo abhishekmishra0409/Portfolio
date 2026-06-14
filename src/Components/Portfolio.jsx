@@ -1,30 +1,45 @@
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { PortfolioProjectSchema } from "./StructuredData.jsx";
 import { projectsData } from "../data/projectsData.js";
 
 const items = projectsData;
 
+const useIsDesktop = () => {
+    const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= 1024);
+    useEffect(() => {
+        const mq = window.matchMedia("(min-width: 1024px)");
+        const handler = (e) => setIsDesktop(e.matches);
+        mq.addEventListener("change", handler);
+        return () => mq.removeEventListener("change", handler);
+    }, []);
+    return isDesktop;
+};
+
 const Single = ({ item }) => {
     const ref = useRef();
+    const isDesktop = useIsDesktop();
     const { scrollYProgress } = useScroll({ target: ref });
-    const y = useTransform(scrollYProgress, [0, 1], [-60, 60]);
+    const yTransform = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+    const y = useTransform(yTransform, (latest) => isDesktop ? latest : 0);
 
     return (
         <article
-            className="container mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 overflow-visible px-4 py-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-12 lg:px-8 lg:py-16 xl:gap-16"
+            className="container mx-auto grid max-w-7xl grid-cols-1 items-center gap-6 px-4 py-8 sm:gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-12 lg:px-8 lg:py-16 xl:gap-16"
             itemScope
             itemType="https://schema.org/CreativeWork"
         >
-            <div className="group w-full min-w-0 max-w-xl justify-self-center lg:max-w-none" ref={ref}>
-                <div className="relative overflow-hidden rounded-[1.75rem] shadow-2xl">
+            {/* Project image */}
+            <div className="group w-full min-w-0 max-w-lg justify-self-center lg:max-w-none" ref={ref}>
+                <div className="relative overflow-hidden rounded-2xl shadow-2xl lg:rounded-[1.75rem]">
                     <div className="absolute inset-0 z-10 bg-blue-500/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                     <img
-                        className="h-full w-full rounded-[1.75rem] border border-white/10 object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-105 lg:aspect-auto lg:h-full"
                         src={item.img}
                         alt={`${item.title} project by Abhishek Mishra`}
                         loading="lazy"
+                        decoding="async"
                         width="800"
                         height="600"
                         itemProp="image"
@@ -32,44 +47,60 @@ const Single = ({ item }) => {
                 </div>
             </div>
 
+            {/* Project details card */}
             <motion.div
-                className="flex min-w-0 flex-col gap-6 text-center lg:text-left"
+                className="flex min-w-0 flex-col"
                 style={{ y }}
-                whileInView={{ opacity: 1, x: 0 }}
-                initial={{ opacity: 0, x: 100 }}
-                transition={{ duration: 0.8 }}
+                whileInView={{ opacity: 1 }}
+                initial={{ opacity: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
             >
-                <div className="surface-card w-full rounded-[1.75rem] p-6 lg:p-8">
+                <div className="surface-card w-full rounded-2xl p-5 sm:p-6 lg:rounded-[1.75rem] lg:p-8">
+                    {/* Title */}
                     <Link to={`/projects/${item.slug}`}>
                         <h2
-                            className="mb-3 cursor-pointer font-display text-2xl font-semibold text-gradient transition-colors lg:text-3xl"
+                            className="mb-2 cursor-pointer font-display text-xl font-semibold text-gradient transition-colors sm:text-2xl lg:text-3xl"
                             itemProp="name"
                         >
                             {item.title}
                         </h2>
                     </Link>
+
+                    {/* Subtitle */}
                     {item.subtitle && (
-                        <p className="mb-2.5 text-xs font-bold tracking-[0.14em] uppercase text-blue-400/80">{item.subtitle}</p>
+                        <p className="mb-3 text-[0.68rem] font-bold tracking-[0.16em] uppercase text-blue-400/80">
+                            {item.subtitle}
+                        </p>
                     )}
-                    <p className="mb-6 text-base leading-relaxed text-slate-300" itemProp="description">
+
+                    {/* Description — left aligned, clamped to 3 lines on mobile */}
+                    <p
+                        className="mb-4 text-sm leading-relaxed text-slate-300 line-clamp-3 sm:line-clamp-none lg:text-base"
+                        itemProp="description"
+                    >
                         {item.desc}
                     </p>
-                    <div className="mb-6 flex flex-wrap justify-center gap-2 lg:justify-start">
+
+                    {/* Tech pills */}
+                    <div className="mb-5 flex flex-wrap gap-1.5">
                         {item.tech.map((tech, index) => (
                             <motion.span
                                 key={index}
-                                whileHover={{ scale: 1.05 }}
-                                className="rounded-full border border-blue-400/12 bg-blue-400/6 px-3 py-1.5 text-xs font-semibold text-blue-200/90 transition-all duration-300 hover:bg-blue-400/10"
+                                whileHover={{ scale: 1.06 }}
+                                className="rounded-full border border-blue-400/15 bg-blue-400/8 px-2.5 py-1 text-[0.7rem] font-medium text-blue-200/90 transition-all duration-200 hover:bg-blue-400/12"
                             >
                                 {tech}
                             </motion.span>
                         ))}
                     </div>
-                    <div className="flex flex-wrap gap-3">
-                        <Link to={`/projects/${item.slug}`} className="w-full sm:w-auto inline-block">
+
+                    {/* Action buttons */}
+                    <div className="flex gap-3">
+                        <Link to={`/projects/${item.slug}`} className="flex-1 sm:flex-none">
                             <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.97 }}
                                 className="button-secondary w-full sm:w-auto"
                             >
                                 View Details
@@ -80,11 +111,11 @@ const Single = ({ item }) => {
                                 href={item.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-full sm:w-auto inline-block"
+                                className="flex-1 sm:flex-none"
                             >
                                 <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
+                                    whileHover={{ scale: 1.03 }}
+                                    whileTap={{ scale: 0.97 }}
                                     className="button-primary w-full sm:w-auto"
                                 >
                                     Live Demo
@@ -179,8 +210,8 @@ export const Portfolio = () => {
                 />
             </div>
             
-            {/* Featured Parallax Showcases */}
-            <div className="space-y-4">
+            {/* Featured Showcases */}
+            <div className="divide-y divide-white/[0.06]">
                 {featuredItems.map((item) => (
                     <Single item={item} key={item.id} />
                 ))}

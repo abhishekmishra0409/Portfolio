@@ -1,20 +1,26 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import "./app.scss"
 import { Navbar } from "./Components/Navbar.jsx";
 import { First } from "./Components/First.jsx";
 import { About } from "./Components/About.jsx";
-import { AboutTimeline } from "./Components/AboutTimeline.jsx";
-import { Technology } from "./Components/Technology.jsx";
-import { Portfolio } from "./Components/Portfolio.jsx";
-import { Contact } from "./Components/Contact.jsx";
-import { NotFound } from "./Components/NotFound.jsx";
-import { ProjectDetail } from "./Components/ProjectDetail.jsx";
-import { Footer } from "./Components/Footer.jsx";
-import { SEO } from "./Components/SEO.jsx";
-import { PersonSchema, WebsiteSchema } from "./Components/StructuredData.jsx";
 import { CosmicBackdrop } from "./Components/CosmicBackdrop.jsx";
 import { scrollToElement, scrollToTop } from "./utils/scrollUtils.js";
+
+// Lazy-load below-fold sections to keep initial bundle small
+const AboutTimeline = lazy(() => import("./Components/AboutTimeline.jsx").then(m => ({ default: m.AboutTimeline })));
+const Technology = lazy(() => import("./Components/Technology.jsx").then(m => ({ default: m.Technology })));
+const Portfolio = lazy(() => import("./Components/Portfolio.jsx").then(m => ({ default: m.Portfolio })));
+const Contact = lazy(() => import("./Components/Contact.jsx").then(m => ({ default: m.Contact })));
+const NotFound = lazy(() => import("./Components/NotFound.jsx").then(m => ({ default: m.NotFound })));
+const ProjectDetail = lazy(() => import("./Components/ProjectDetail.jsx").then(m => ({ default: m.ProjectDetail })));
+const Footer = lazy(() => import("./Components/Footer.jsx").then(m => ({ default: m.Footer })));
+// SEO + structured data are tiny; import eagerly so meta tags are set immediately
+import { SEO } from "./Components/SEO.jsx";
+import { PersonSchema, WebsiteSchema } from "./Components/StructuredData.jsx";
+
+// Minimal fallback — invisible, same bg colour so there's no flash
+const SectionFallback = () => <div aria-hidden="true" className="min-h-[8rem]" />;
 
 const pageShellClass = "app-shell site-shell relative min-h-screen overflow-x-hidden text-slate-100";
 const pageContainerClass = "relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8";
@@ -28,7 +34,9 @@ const PageFrame = ({ children, contentClassName = "pb-16 pt-24 sm:pt-28 lg:pb-24
                 {children}
             </main>
         </div>
-        <Footer />
+        <Suspense fallback={null}>
+            <Footer />
+        </Suspense>
     </>
 );
 
@@ -45,13 +53,9 @@ const HomePage = () => {
         };
         const id = sectionMap[location.pathname];
         if (id) {
-            setTimeout(() => {
-                scrollToElement(id, 80);
-            }, 100);
-        } else if (location.pathname === "/") {
-            if (!window.location.hash) {
-                scrollToTop(true);
-            }
+            setTimeout(() => scrollToElement(id, 80), 100);
+        } else if (location.pathname === "/" && !window.location.hash) {
+            scrollToTop(true);
         }
     }, [location.pathname]);
 
@@ -68,10 +72,18 @@ const HomePage = () => {
             <PageFrame contentClassName="space-y-16 pb-16 pt-24 sm:space-y-24 sm:pt-28 lg:space-y-32 lg:pb-24 lg:pt-32">
                 <div id="home"><First /></div>
                 <div id="about"><About /></div>
-                <div id="timeline"><AboutTimeline /></div>
-                <div id="skills"><Technology /></div>
-                <div id="projects"><Portfolio /></div>
-                <div id="contact"><Contact /></div>
+                <Suspense fallback={<SectionFallback />}>
+                    <div id="timeline"><AboutTimeline /></div>
+                </Suspense>
+                <Suspense fallback={<SectionFallback />}>
+                    <div id="skills"><Technology /></div>
+                </Suspense>
+                <Suspense fallback={<SectionFallback />}>
+                    <div id="projects"><Portfolio /></div>
+                </Suspense>
+                <Suspense fallback={<SectionFallback />}>
+                    <div id="contact"><Contact /></div>
+                </Suspense>
             </PageFrame>
         </>
     );
@@ -85,9 +97,17 @@ const App = () => (
             <Route path="/experience" element={<HomePage />} />
             <Route path="/skills" element={<HomePage />} />
             <Route path="/projects" element={<HomePage />} />
-            <Route path="/projects/:slug" element={<ProjectDetail />} />
+            <Route path="/projects/:slug" element={
+                <Suspense fallback={<SectionFallback />}>
+                    <ProjectDetail />
+                </Suspense>
+            } />
             <Route path="/contact" element={<HomePage />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="*" element={
+                <Suspense fallback={null}>
+                    <NotFound />
+                </Suspense>
+            } />
         </Routes>
     </div>
 );

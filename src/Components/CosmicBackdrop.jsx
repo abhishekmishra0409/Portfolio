@@ -1,10 +1,15 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
+const isMobile = () => window.matchMedia("(max-width: 768px)").matches;
+
 export const CosmicBackdrop = () => {
     const canvasRef = useRef(null);
 
     useEffect(() => {
+        // Skip the canvas entirely on mobile — too expensive on low-end CPUs
+        if (isMobile()) return;
+
         const canvas = canvasRef.current;
         if (!canvas) return;
         const ctx = canvas.getContext("2d");
@@ -22,43 +27,29 @@ export const CosmicBackdrop = () => {
 
         class Particle {
             constructor(x, y, dx, dy, size, color) {
-                this.x = x;
-                this.y = y;
-                this.dx = dx;
-                this.dy = dy;
-                this.size = size;
-                this.color = color;
+                this.x = x; this.y = y;
+                this.dx = dx; this.dy = dy;
+                this.size = size; this.color = color;
             }
-
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
                 ctx.fillStyle = this.color;
                 ctx.fill();
             }
-
             update() {
-                // Regular motion
                 this.x += this.dx;
                 this.y += this.dy;
-
-                // Bounce off canvas edges
                 if (this.x < 0 || this.x > canvas.width) this.dx = -this.dx;
                 if (this.y < 0 || this.y > canvas.height) this.dy = -this.dy;
-
-                // Mouse interactive effect (gentle attraction/repulsion)
                 if (mouse.x !== null && mouse.y !== null) {
                     const dx = mouse.x - this.x;
                     const dy = mouse.y - this.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
-
                     if (distance < mouse.radius) {
                         const force = (mouse.radius - distance) / mouse.radius;
-                        // Move slightly away from the cursor
-                        const directionX = (dx / distance) * force * 1.2;
-                        const directionY = (dy / distance) * force * 1.2;
-                        this.x -= directionX;
-                        this.y -= directionY;
+                        this.x -= (dx / distance) * force * 1.2;
+                        this.y -= (dy / distance) * force * 1.2;
                     }
                 }
             }
@@ -66,17 +57,16 @@ export const CosmicBackdrop = () => {
 
         const initParticles = () => {
             particles = [];
-            // Scale number of particles based on screen width (fewer on mobile)
             const count = Math.min(65, Math.floor((canvas.width * canvas.height) / 28000));
             for (let i = 0; i < count; i++) {
-                const size = Math.random() * 1.5 + 0.6;
-                const x = Math.random() * canvas.width;
-                const y = Math.random() * canvas.height;
-                // Very slow drift
-                const dx = (Math.random() - 0.5) * 0.35;
-                const dy = (Math.random() - 0.5) * 0.35;
-                const color = "rgba(147, 197, 253, 0.18)"; // Soft blue-200 glow
-                particles.push(new Particle(x, y, dx, dy, size, color));
+                particles.push(new Particle(
+                    Math.random() * canvas.width,
+                    Math.random() * canvas.height,
+                    (Math.random() - 0.5) * 0.35,
+                    (Math.random() - 0.5) * 0.35,
+                    Math.random() * 1.5 + 0.6,
+                    "rgba(147, 197, 253, 0.18)"
+                ));
             }
         };
 
@@ -86,11 +76,8 @@ export const CosmicBackdrop = () => {
                     const dx = particles[a].x - particles[b].x;
                     const dy = particles[a].y - particles[b].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    // Draw thin connecting lines if particles are close
                     if (distance < 110) {
-                        const opacity = (1 - distance / 110) * 0.06;
-                        ctx.strokeStyle = `rgba(147, 197, 253, ${opacity})`;
+                        ctx.strokeStyle = `rgba(147, 197, 253, ${(1 - distance / 110) * 0.06})`;
                         ctx.lineWidth = 0.5;
                         ctx.beginPath();
                         ctx.moveTo(particles[a].x, particles[a].y);
@@ -98,16 +85,12 @@ export const CosmicBackdrop = () => {
                         ctx.stroke();
                     }
                 }
-
-                // Also draw connection to mouse cursor
                 if (mouse.x !== null && mouse.y !== null) {
                     const dx = particles[a].x - mouse.x;
                     const dy = particles[a].y - mouse.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
-
                     if (distance < mouse.radius) {
-                        const opacity = (1 - distance / mouse.radius) * 0.12;
-                        ctx.strokeStyle = `rgba(96, 165, 250, ${opacity})`;
+                        ctx.strokeStyle = `rgba(96, 165, 250, ${(1 - distance / mouse.radius) * 0.12})`;
                         ctx.lineWidth = 0.5;
                         ctx.beginPath();
                         ctx.moveTo(particles[a].x, particles[a].y);
@@ -120,10 +103,7 @@ export const CosmicBackdrop = () => {
 
         const animate = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((particle) => {
-                particle.update();
-                particle.draw();
-            });
+            particles.forEach((p) => { p.update(); p.draw(); });
             connect();
             animationFrameId = requestAnimationFrame(animate);
         };
@@ -132,16 +112,8 @@ export const CosmicBackdrop = () => {
         resizeCanvas();
         animate();
 
-        const handleMouseMove = (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        };
-
-        const handleMouseLeave = () => {
-            mouse.x = null;
-            mouse.y = null;
-        };
-
+        const handleMouseMove = (e) => { mouse.x = e.clientX; mouse.y = e.clientY; };
+        const handleMouseLeave = () => { mouse.x = null; mouse.y = null; };
         window.addEventListener("mousemove", handleMouseMove);
         window.addEventListener("mouseleave", handleMouseLeave);
 
@@ -155,51 +127,26 @@ export const CosmicBackdrop = () => {
 
     return (
         <div aria-hidden="true" className="site-backdrop fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#0b1020]">
-            {/* Ambient Nebula blobs: Slowly floating in back */}
+            {/* Nebula blobs — static on mobile, animated on desktop */}
             <motion.div
-                animate={{
-                    x: [0, 60, -30, 0],
-                    y: [0, -50, 30, 0],
-                    scale: [1, 1.15, 0.92, 1],
-                }}
-                transition={{
-                    duration: 22,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                }}
-                className="absolute -top-[15%] -left-[10%] h-[50vw] w-[50vw] max-w-[500px] rounded-full bg-blue-500/[0.14] blur-[130px]"
+                animate={{ x: [0, 60, -30, 0], y: [0, -50, 30, 0], scale: [1, 1.15, 0.92, 1] }}
+                transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-[15%] -left-[10%] h-[50vw] w-[50vw] max-w-[500px] rounded-full bg-blue-500/[0.14] blur-[130px] motion-reduce:animate-none"
             />
             <motion.div
-                animate={{
-                    x: [0, -50, 60, 0],
-                    y: [0, 30, -50, 0],
-                    scale: [1, 0.90, 1.12, 1],
-                }}
-                transition={{
-                    duration: 28,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                }}
-                className="absolute -bottom-[15%] -right-[10%] h-[45vw] w-[45vw] max-w-[450px] rounded-full bg-indigo-500/[0.10] blur-[110px]"
+                animate={{ x: [0, -50, 60, 0], y: [0, 30, -50, 0], scale: [1, 0.90, 1.12, 1] }}
+                transition={{ duration: 28, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -bottom-[15%] -right-[10%] h-[45vw] w-[45vw] max-w-[450px] rounded-full bg-indigo-500/[0.10] blur-[110px] motion-reduce:animate-none"
             />
             <motion.div
-                animate={{
-                    x: [0, 30, -30, 0],
-                    y: [0, 30, -30, 0],
-                    scale: [1, 1.08, 0.95, 1],
-                }}
-                transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                }}
-                className="absolute top-[35%] left-[20%] h-[35vw] w-[35vw] max-w-[350px] rounded-full bg-blue-600/[0.07] blur-[100px]"
+                animate={{ x: [0, 30, -30, 0], y: [0, 30, -30, 0], scale: [1, 1.08, 0.95, 1] }}
+                transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-[35%] left-[20%] h-[35vw] w-[35vw] max-w-[350px] rounded-full bg-blue-600/[0.07] blur-[100px] motion-reduce:animate-none"
             />
 
-            {/* Interactive particles canvas */}
-            <canvas ref={canvasRef} className="absolute inset-0 h-full w-full opacity-70" />
+            {/* Canvas hidden on mobile (no ref effect runs) */}
+            <canvas ref={canvasRef} className="absolute inset-0 h-full w-full opacity-70 hidden sm:block" />
 
-            {/* The dot grid overlay for tech blueprint aesthetic */}
             <div className="absolute inset-0 bg-[radial-gradient(rgba(148,163,184,0.035)_1px,transparent_1px)] bg-[size:32px_32px]" />
         </div>
     );
