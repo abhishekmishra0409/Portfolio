@@ -5,19 +5,18 @@ import { Navbar } from "./Components/Navbar.jsx";
 import { First } from "./Components/First.jsx";
 import { About } from "./Components/About.jsx";
 import { CosmicBackdrop } from "./Components/CosmicBackdrop.jsx";
-import { scrollToElement, scrollToTop } from "./utils/scrollUtils.js";
-
-// Lazy-load below-fold sections to keep initial bundle small
-const AboutTimeline = lazy(() => import("./Components/AboutTimeline.jsx").then(m => ({ default: m.AboutTimeline })));
-const Technology = lazy(() => import("./Components/Technology.jsx").then(m => ({ default: m.Technology })));
-const Portfolio = lazy(() => import("./Components/Portfolio.jsx").then(m => ({ default: m.Portfolio })));
-const Contact = lazy(() => import("./Components/Contact.jsx").then(m => ({ default: m.Contact })));
-const NotFound = lazy(() => import("./Components/NotFound.jsx").then(m => ({ default: m.NotFound })));
-const ProjectDetail = lazy(() => import("./Components/ProjectDetail.jsx").then(m => ({ default: m.ProjectDetail })));
-const Footer = lazy(() => import("./Components/Footer.jsx").then(m => ({ default: m.Footer })));
-// SEO + structured data are tiny; import eagerly so meta tags are set immediately
 import { SEO } from "./Components/SEO.jsx";
 import { PersonSchema, WebsiteSchema } from "./Components/StructuredData.jsx";
+import { scrollToElement, scrollToTop } from "./utils/scrollUtils.js";
+
+// Lazy-load below-fold sections — keeps initial JS bundle small
+const AboutTimeline = lazy(() => import("./Components/AboutTimeline.jsx").then(m => ({ default: m.AboutTimeline })));
+const Technology    = lazy(() => import("./Components/Technology.jsx").then(m => ({ default: m.Technology })));
+const Portfolio     = lazy(() => import("./Components/Portfolio.jsx").then(m => ({ default: m.Portfolio })));
+const Contact       = lazy(() => import("./Components/Contact.jsx").then(m => ({ default: m.Contact })));
+const NotFound      = lazy(() => import("./Components/NotFound.jsx").then(m => ({ default: m.NotFound })));
+const ProjectDetail = lazy(() => import("./Components/ProjectDetail.jsx").then(m => ({ default: m.ProjectDetail })));
+const Footer        = lazy(() => import("./Components/Footer.jsx").then(m => ({ default: m.Footer })));
 
 // Minimal fallback — invisible, same bg colour so there's no flash
 const SectionFallback = () => <div aria-hidden="true" className="min-h-[8rem]" />;
