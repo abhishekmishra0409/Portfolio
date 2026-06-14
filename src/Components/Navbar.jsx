@@ -1,4 +1,4 @@
-﻿import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import logo from "../assets/AM Logo.png";
@@ -15,44 +15,41 @@ import {
     TbX,
 } from "react-icons/tb";
 import { motion, AnimatePresence } from "framer-motion";
+import { personalData } from "../data/personalData.js";
+import { scrollToElement } from "../utils/scrollUtils.js";
 
 export const Navbar = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-    const isActive = (path) => {
-        if (path === "/") return location.pathname === "/";
-        return location.pathname.startsWith(path);
-    };
+    const [activeSection, setActiveSection] = useState("home");
 
     const navLinks = [
-        { path: "/",           label: "Home",       Icon: TbHome },
-        { path: "/about",      label: "About",      Icon: TbUser },
-        { path: "/experience", label: "Experience", Icon: TbBriefcase },
-        { path: "/skills",     label: "Skills",     Icon: TbCode },
-        { path: "/projects",   label: "Projects",   Icon: TbFolder },
-        { path: "/contact",    label: "Contact",    Icon: TbMail },
+        { path: "/",           sectionId: "home",       label: "Home",       Icon: TbHome },
+        { path: "/about",      sectionId: "about",      label: "About",      Icon: TbUser },
+        { path: "/skills",     sectionId: "skills",     label: "Skills",     Icon: TbCode },
+        { path: "/projects",   sectionId: "projects",   label: "Projects",   Icon: TbFolder },
+        { path: "/contact",    sectionId: "contact",    label: "Contact",    Icon: TbMail },
     ];
 
     const socialLinks = [
         {
-            href: "https://drive.google.com/file/d/19r1_IolHkqCuOp64nHSh82X5btLJUquF/view?usp=sharing",
+            href: personalData.resumeUrl,
             label: "Download Resume",
             icon: <TbDownload className="text-lg" />,
         },
         {
-            href: "https://www.linkedin.com/in/abhishekmishra04/",
+            href: personalData.linkedinUrl,
             label: "LinkedIn Profile",
             icon: <FaLinkedin className="text-lg" />,
         },
         {
-            href: "https://github.com/abhishekmishra0409",
+            href: personalData.githubUrl,
             label: "GitHub Profile",
             icon: <FaGithub className="text-lg" />,
         },
         {
-            href: "https://www.instagram.com/abhishekmishra0409/",
+            href: personalData.instagramUrl,
             label: "Instagram Profile",
             icon: <FaInstagram className="text-lg" />,
         },
@@ -65,11 +62,65 @@ export const Navbar = () => {
         return () => { document.body.style.overflow = "unset"; };
     }, [isMobileMenuOpen]);
 
-    const handleNavClick = (path) => {
+    // IntersectionObserver for scroll-spy active section detection
+    useEffect(() => {
+        const homeAndSectionPaths = ["/", "/about", "/experience", "/skills", "/projects", "/contact"];
+        if (!homeAndSectionPaths.includes(location.pathname)) {
+            setActiveSection("");
+            return;
+        }
+
+        const sections = ["home", "about", "timeline", "experience", "skills", "projects", "contact"];
+        const observerOptions = {
+            root: null,
+            rootMargin: "-40% 0px -50% 0px",
+            threshold: 0,
+        };
+
+        const observerCallback = (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    // Highlight "About" navigation link when scrolling through the timeline or Experience section
+                    if (id === "timeline" || id === "experience") {
+                        setActiveSection("about");
+                    } else {
+                        setActiveSection(id);
+                    }
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        sections.forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) observer.observe(el);
+        });
+
+        return () => observer.disconnect();
+    }, [location.pathname]);
+
+    const isActive = (path, sectionId) => {
+        const homeAndSectionPaths = ["/", "/about", "/experience", "/skills", "/projects", "/contact"];
+        if (homeAndSectionPaths.includes(location.pathname)) {
+            return activeSection === sectionId;
+        }
+        if (path === "/") return location.pathname === "/";
+        return location.pathname.startsWith(path);
+    };
+
+    const handleNavClick = (path, sectionId) => {
         setIsMobileMenuOpen(false);
-        navigate(path);
-        if (window.innerWidth >= 768) {
-            setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 100);
+        const homeAndSectionPaths = ["/", "/about", "/experience", "/skills", "/projects", "/contact"];
+        
+        if (homeAndSectionPaths.includes(location.pathname)) {
+            // Smooth scroll
+            scrollToElement(sectionId, 80);
+            // Update URL without page reload
+            window.history.pushState(null, "", path);
+        } else {
+            navigate(path);
         }
     };
 
@@ -95,14 +146,14 @@ export const Navbar = () => {
                                   animate={{ x: 0 }}
                                   exit={{ x: "100%" }}
                                   transition={{ type: "spring", damping: 28, stiffness: 280 }}
-                                  className="mobile-sidebar mobile-nav-drawer fixed right-0 top-0 z-[2147483001] flex h-[100dvh] max-h-[100dvh] w-[min(20rem,100vw)] flex-col border-l border-white/10 bg-[#030712] shadow-[0_0_60px_rgba(0,0,0,0.75)] md:hidden"
+                                  className="mobile-sidebar mobile-nav-drawer fixed right-0 top-0 z-[2147483001] flex h-[100dvh] max-h-[100dvh] w-[min(20rem,100vw)] flex-col border-l border-white/[0.08] bg-[#0b1222] shadow-[0_0_60px_rgba(0,0,0,0.75)] md:hidden"
                                   style={{ pointerEvents: "auto", isolation: "isolate" }}
                                   role="dialog"
                                   aria-modal="true"
                                   aria-label="Mobile navigation"
                                   onClick={(e) => e.stopPropagation()}
                               >
-                                  <div className="surface-card flex min-h-0 flex-1 flex-col overflow-y-auto rounded-none border-0 border-l border-white/10 bg-[rgba(3,7,18,0.97)] shadow-none backdrop-blur-xl">
+                                  <div className="surface-card flex min-h-0 flex-1 flex-col overflow-y-auto rounded-none border-0 border-l border-white/10 bg-[rgba(11,18,34,0.98)] shadow-none backdrop-blur-xl">
                                       <button
                                           type="button"
                                           onClick={() => setIsMobileMenuOpen(false)}
@@ -121,6 +172,7 @@ export const Navbar = () => {
                                           <nav className="mb-8 flex flex-col gap-2" aria-label="Mobile pages">
                                               {navLinks.map((link) => {
                                                   const Icon = link.Icon;
+                                                  const active = isActive(link.path, link.sectionId);
                                                   return (
                                                       <button
                                                           key={link.path}
@@ -128,14 +180,14 @@ export const Navbar = () => {
                                                           onClick={(e) => {
                                                               e.preventDefault();
                                                               e.stopPropagation();
-                                                              handleNavClick(link.path);
+                                                              handleNavClick(link.path, link.sectionId);
                                                           }}
                                                           className={`flex w-full items-center gap-3 rounded-xl px-4 py-3.5 text-left text-base font-medium transition-all duration-200 ${
-                                                              isActive(link.path)
+                                                              active
                                                                   ? "nav-pill-active bg-white/[0.06]"
                                                                   : "text-slate-300 hover:bg-white/8 hover:text-white"
                                                           }`}
-                                                          aria-current={isActive(link.path) ? "page" : undefined}
+                                                          aria-current={active ? "page" : undefined}
                                                       >
                                                           <Icon className="h-5 w-5 shrink-0 opacity-80" aria-hidden />
                                                           {link.label}
@@ -171,11 +223,13 @@ export const Navbar = () => {
     return (
         <>
             <nav
-                className={`sticky top-4 ${isMobileMenuOpen ? "z-[2147483002]" : "z-50"}`}
+                className={`fixed top-0 left-0 right-0 w-full border-b border-white/[0.07] bg-[#0b1020]/82 backdrop-blur-md transition-all duration-300 ${
+                    isMobileMenuOpen ? "z-[2147483002]" : "z-50"
+                }`}
                 role="navigation"
                 aria-label="Main navigation"
             >
-                <div className="surface-card flex items-center justify-between gap-4 rounded-2xl px-4 py-3 sm:px-5 lg:px-6">
+                <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -184,32 +238,35 @@ export const Navbar = () => {
                     >
                         <Link
                             to="/"
-                            aria-label="Home â€” Abhishek Mishra"
-                            onClick={() => setIsMobileMenuOpen(false)}
+                            aria-label="Home — Abhishek Mishra"
+                            onClick={() => handleNavClick("/", "home")}
                             className="flex items-center gap-3"
                         >
-                            <img className="w-12 sm:w-14" src={logo} alt="Abhishek Mishra â€” AM" loading="eager" />
+                            <img className="w-12 sm:w-14" src={logo} alt="Abhishek Mishra — AM" loading="eager" />
                             <div className="hidden sm:block">
                                 <p className="text-sm font-semibold text-slate-100 tracking-tight">
-                                    Abhishek Mishra
+                                    {personalData.name}
                                 </p>
-                                <p className="mt-0.5 text-xs text-slate-500">Software Engineer</p>
+                                <p className="mt-0.5 text-xs text-slate-500">{personalData.jobTitle}</p>
                             </div>
                         </Link>
                     </motion.div>
 
-                    {/* Desktop nav â€” text-only pills, no icons */}
+                    {/* Desktop nav — text-only pills, no icons */}
                     <div className="hidden md:flex flex-1 items-center justify-center gap-1">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.path}
-                                to={link.path}
-                                className={`nav-pill ${isActive(link.path) ? "nav-pill-active" : ""}`}
-                                aria-current={isActive(link.path) ? "page" : undefined}
-                            >
-                                {link.label}
-                            </Link>
-                        ))}
+                        {navLinks.map((link) => {
+                            const active = isActive(link.path, link.sectionId);
+                            return (
+                                <button
+                                    key={link.path}
+                                    onClick={() => handleNavClick(link.path, link.sectionId)}
+                                    className={`nav-pill ${active ? "nav-pill-active" : ""}`}
+                                    aria-current={active ? "page" : undefined}
+                                >
+                                    {link.label}
+                                </button>
+                            );
+                        })}
                     </div>
 
                     <div className="hidden items-center justify-center gap-2 text-slate-300 md:flex">

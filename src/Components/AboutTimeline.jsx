@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { TbCalendarEvent, TbDeviceGamepad2, TbSparkles, TbAward, TbBriefcase, TbSchool, TbTrophy } from "react-icons/tb";
+import { TbCalendarEvent, TbSparkles, TbAward, TbBriefcase, TbSchool, TbTrophy, TbDeviceGamepad2 } from "react-icons/tb";
 import { GiChessKnight } from "react-icons/gi";
 
 export const AboutTimeline = () => {
@@ -168,14 +168,6 @@ export const AboutTimeline = () => {
                                     <span className="text-slate-600">·</span>
                                     <span>{item.role}</span>
                                 </div>
-                                <ul className="space-y-1.5">
-                                    {item.responsibilities.map((resp) => (
-                                        <li key={resp} className="flex items-start gap-2 text-sm text-slate-400">
-                                            <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-blue-400/60" />
-                                            <span>{resp}</span>
-                                        </li>
-                                    ))}
-                                </ul>
                             </>
                         )}
                     </motion.div>
@@ -206,7 +198,7 @@ export const AboutTimeline = () => {
             </section>
 
             {/* Experience */}
-            <section>
+            <section id="experience">
                 <motion.h2
                     initial={{ opacity: 0, y: -16 }}
                     whileInView={{ opacity: 1, y: 0 }}

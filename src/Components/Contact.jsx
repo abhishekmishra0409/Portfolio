@@ -1,31 +1,32 @@
-﻿import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import Toastify from "toastify-js";
 import { TbArrowRight, TbMail, TbMapPin, TbPhone } from "react-icons/tb";
 import "toastify-js/src/toastify.css";
+import { personalData } from "../data/personalData.js";
 
 export const Contact = () => {
     const formRef = useRef();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const resumeUrl = "https://drive.google.com/file/d/19r1_IolHkqCuOp64nHSh82X5btLJUquF/view?usp=sharing";
+    const resumeUrl = personalData.resumeUrl;
 
     const contactItems = [
         {
             title: "Email",
-            value: "abhishekmishra0409@gmail.com",
-            href: "mailto:abhishekmishra0409@gmail.com",
+            value: personalData.email,
+            href: `mailto:${personalData.email}`,
             icon: <TbMail className="text-xl text-blue-300" />,
         },
         {
             title: "Phone",
-            value: "+91 7489977978",
-            href: "tel:+917489977978",
+            value: personalData.phone,
+            href: personalData.phoneHref,
             icon: <TbPhone className="text-xl text-blue-300" />,
         },
         {
             title: "Location",
-            value: "Indore, Madhya Pradesh, India",
+            value: personalData.locationFull,
             href: null,
             icon: <TbMapPin className="text-xl text-blue-300" />,
         },
@@ -70,9 +71,9 @@ export const Contact = () => {
         <section id="contactSection" className="py-4 lg:py-6">
             <div className="mx-auto mb-12 max-w-3xl text-center">
                 <p className="space-eyebrow justify-center">Contact</p>
-                <h1 className="mt-5 font-display text-4xl font-bold text-white sm:text-5xl">
+                <h2 className="mt-5 font-display text-4xl font-bold text-white sm:text-5xl">
                     Let&apos;s build something worth talking about.
-                </h1>
+                </h2>
                 <p className="mt-4 text-base leading-8 text-slate-300 sm:text-lg">
                     If you&apos;re hiring, collaborating, or want to discuss a product idea, I&apos;m happy to connect.
                 </p>

@@ -1,48 +1,39 @@
-﻿import { Link } from "react-router-dom";
 import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
+import { personalData } from "../data/personalData.js";
 
 export const Footer = () => {
     const currentYear = new Date().getFullYear();
 
-    const navLinks = [
-        { to: "/",           label: "Home" },
-        { to: "/about",      label: "About" },
-        { to: "/experience", label: "Experience" },
-        { to: "/skills",     label: "Skills" },
-        { to: "/projects",   label: "Projects" },
-        { to: "/contact",    label: "Contact" },
-    ];
-
     const socialLinks = [
         {
-            href: "https://www.linkedin.com/in/abhishekmishra04/",
+            href: personalData.linkedinUrl,
             label: "LinkedIn",
             icon: <FaLinkedin className="text-xl" />,
         },
         {
-            href: "https://github.com/abhishekmishra0409",
+            href: personalData.githubUrl,
             label: "GitHub",
             icon: <FaGithub className="text-xl" />,
         },
         {
-            href: "https://www.instagram.com/abhishekmishra0409/",
+            href: personalData.instagramUrl,
             label: "Instagram",
             icon: <FaInstagram className="text-xl" />,
         },
     ];
 
     return (
-        <footer className="footer-mobile-fix relative z-10 px-4 pb-8 pt-2" role="contentinfo">
-            <div className="surface-card mx-auto max-w-7xl rounded-[2rem] px-6 py-8">
+        <footer className="footer-mobile-fix relative z-10 w-full border-t border-white/5 bg-[#060a12]/80 px-4 py-8 sm:px-6 lg:px-8" role="contentinfo">
+            <div className="mx-auto max-w-7xl">
                 <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                     <div className="text-center md:text-left">
-                        <p className="font-display text-lg font-semibold text-white">Abhishek Mishra</p>
+                        <p className="font-display text-lg font-semibold text-white">{personalData.name}</p>
                         <p className="mt-2 max-w-sm text-sm leading-6 text-slate-400">
                             Full stack developer building interfaces and APIs with the MERN stack.
                             Open to new opportunities and interesting product challenges.
                         </p>
                         <p className="mt-3 text-xs text-slate-600">
-                            &copy; {currentYear} Abhishek Mishra. All rights reserved.
+                            &copy; {currentYear} {personalData.name}. All rights reserved.
                         </p>
                     </div>
 
@@ -60,20 +51,6 @@ export const Footer = () => {
                             </a>
                         ))}
                     </div>
-                </div>
-
-                <div className="mt-6 border-t border-white/10 pt-6 text-center">
-                    <nav className="flex flex-wrap justify-center gap-2 text-sm" aria-label="Footer navigation">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.to}
-                                to={link.to}
-                                className="footer-nav-link rounded-full px-3 py-2 text-slate-400 transition hover:bg-white/5"
-                            >
-                                {link.label}
-                            </Link>
-                        ))}
-                    </nav>
                 </div>
             </div>
         </footer>

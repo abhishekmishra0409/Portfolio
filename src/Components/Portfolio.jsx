@@ -42,24 +42,24 @@ const Single = ({ item }) => {
                 <div className="surface-card w-full rounded-[1.75rem] p-6 lg:p-8">
                     <Link to={`/projects/${item.slug}`}>
                         <h2
-                            className="mb-4 cursor-pointer font-display text-3xl font-semibold text-gradient transition-colors lg:text-4xl"
+                            className="mb-3 cursor-pointer font-display text-2xl font-semibold text-gradient transition-colors lg:text-3xl"
                             itemProp="name"
                         >
                             {item.title}
                         </h2>
                     </Link>
                     {item.subtitle && (
-                        <p className="mb-2 text-sm font-medium text-blue-300">{item.subtitle}</p>
+                        <p className="mb-2.5 text-xs font-bold tracking-[0.14em] uppercase text-blue-400/80">{item.subtitle}</p>
                     )}
-                    <p className="mb-6 text-lg leading-relaxed text-slate-300" itemProp="description">
+                    <p className="mb-6 text-base leading-relaxed text-slate-300" itemProp="description">
                         {item.desc}
                     </p>
                     <div className="mb-6 flex flex-wrap justify-center gap-2 lg:justify-start">
                         {item.tech.map((tech, index) => (
                             <motion.span
                                 key={index}
-                                whileHover={{ scale: 1.08 }}
-                                className="rounded-full border border-blue-400/20 bg-blue-400/10 px-4 py-2 text-sm font-medium text-blue-200 transition-all duration-300 hover:bg-blue-400/15"
+                                whileHover={{ scale: 1.05 }}
+                                className="rounded-full border border-blue-400/12 bg-blue-400/6 px-3 py-1.5 text-xs font-semibold text-blue-200/90 transition-all duration-300 hover:bg-blue-400/10"
                             >
                                 {tech}
                             </motion.span>
@@ -98,10 +98,66 @@ const Single = ({ item }) => {
     );
 };
 
+const ProjectCard = ({ item }) => (
+    <motion.div
+        whileHover={{ y: -5 }}
+        className="surface-card group flex flex-col justify-between rounded-2xl p-4 transition-all duration-300 hover:border-blue-400/20"
+    >
+        <div>
+            <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-white/10 mb-4 bg-slate-950">
+                <img
+                    src={item.img}
+                    alt={item.title}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    loading="lazy"
+                />
+            </div>
+            <h3 className="font-display text-lg font-bold text-white transition-colors group-hover:text-blue-300">
+                {item.title}
+            </h3>
+            {item.subtitle && (
+                <p className="text-xs font-semibold text-blue-400 mt-1">{item.subtitle}</p>
+            )}
+            <p className="text-sm text-slate-400 mt-2 line-clamp-3">
+                {item.desc}
+            </p>
+        </div>
+        <div className="mt-4">
+            <div className="flex flex-wrap gap-1 mb-4">
+                {item.tech.slice(0, 3).map((t) => (
+                    <span key={t} className="rounded-full border border-blue-400/10 bg-blue-400/5 px-2 py-0.5 text-[10px] font-medium text-blue-200">
+                        {t}
+                    </span>
+                ))}
+                {item.tech.length > 3 && (
+                    <span className="text-[10px] text-slate-500 font-medium self-center">+{item.tech.length - 3}</span>
+                )}
+            </div>
+            <div className="flex gap-2">
+                <Link to={`/projects/${item.slug}`} className="flex-1">
+                    <button className="button-secondary !py-1.5 !px-3 !rounded-lg text-xs w-full min-h-0">
+                        Details
+                    </button>
+                </Link>
+                {item.link && (
+                    <a href={item.link} target="_blank" rel="noopener noreferrer" className="flex-1">
+                        <button className="button-primary !py-1.5 !px-3 !rounded-lg text-xs w-full min-h-0">
+                            Demo
+                        </button>
+                    </a>
+                )}
+            </div>
+        </div>
+    </motion.div>
+);
+
 export const Portfolio = () => {
     const ref = useRef();
     const { scrollYProgress } = useScroll({ target: ref, offset: ["end end", "start start"] });
     const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+
+    const featuredItems = items.filter(p => [10, 1, 2].includes(p.id));
+    const otherItems = items.filter(p => ![10, 1, 2].includes(p.id));
 
     return (
         <section className="portfolio" ref={ref}>
@@ -109,9 +165,9 @@ export const Portfolio = () => {
             <div className="progress sticky left-0 top-20 z-10 py-3">
                 <div className="mx-auto max-w-4xl px-5 py-2 text-center lg:px-8">
                     <p className="space-eyebrow justify-center">Projects</p>
-                    <h1 className="mt-4 font-display text-3xl font-bold text-white sm:text-4xl lg:text-[2.75rem]">
+                    <h2 className="mt-4 font-display text-3xl font-bold text-white sm:text-4xl lg:text-[2.75rem]">
                         Featured Projects
-                    </h1>
+                    </h2>
                     <p className="mt-3 text-sm text-slate-400 lg:text-base">
                         A selection of projects built end to end, from design to deployment.
                     </p>
@@ -122,9 +178,25 @@ export const Portfolio = () => {
                     aria-hidden="true"
                 />
             </div>
-            {items.map((item) => (
-                <Single item={item} key={item.id} />
-            ))}
+            
+            {/* Featured Parallax Showcases */}
+            <div className="space-y-4">
+                {featuredItems.map((item) => (
+                    <Single item={item} key={item.id} />
+                ))}
+            </div>
+
+            {/* Other Projects Grid */}
+            <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 border-t border-white/5 mt-16">
+                <h3 className="text-center font-display text-2xl font-bold text-white mb-8">
+                    More Notable Projects
+                </h3>
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {otherItems.map((item) => (
+                        <ProjectCard item={item} key={item.id} />
+                    ))}
+                </div>
+            </div>
         </section>
     );
 };

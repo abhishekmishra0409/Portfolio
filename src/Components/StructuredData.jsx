@@ -1,24 +1,21 @@
-/**
- * Structured Data Component for JSON-LD schema markup
- * Provides structured data for Person, Website, and Portfolio projects
- */
+import { personalData } from "../data/personalData.js";
 
 export const PersonSchema = () => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": "Abhishek Mishra",
-    "alternateName": "abmishra",
-    "jobTitle": "Full Stack Developer",
+    "name": personalData.name,
+    "alternateName": personalData.alternateName,
+    "jobTitle": personalData.jobTitle,
     "description": "Full Stack Developer specializing in MERN stack, React, Node.js, and modern web technologies",
-    "url": "https://abmishra.dev",
-    "image": "https://abmishra.dev/src/assets/My_self.webp",
+    "url": personalData.siteUrl,
+    "image": `${personalData.siteUrl}/src/assets/My_self.webp`,
     "sameAs": [
-      "https://www.linkedin.com/in/abhishekmishra04/",
-      "https://github.com/abhishekmishra0409",
-      "https://www.instagram.com/abhishekmishra0409/"
+      personalData.linkedinUrl,
+      personalData.githubUrl,
+      personalData.instagramUrl
     ],
-    "email": "abhishekmishra0409@gmail.com",
+    "email": personalData.email,
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Indore",
@@ -53,21 +50,21 @@ export const WebsiteSchema = () => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Abhishek Mishra - Portfolio",
-    "alternateName": "abmishra.dev",
-    "url": "https://abmishra.dev",
-    "description": "Portfolio website of Abhishek Mishra - Full Stack Developer, MERN Developer, and React Developer",
+    "name": `${personalData.name} - Portfolio`,
+    "alternateName": personalData.alternateName + ".dev",
+    "url": personalData.siteUrl,
+    "description": `Portfolio website of ${personalData.name} - Full Stack Developer, MERN Developer, and React Developer`,
     "author": {
       "@type": "Person",
-      "name": "Abhishek Mishra"
+      "name": personalData.name
     },
     "publisher": {
       "@type": "Person",
-      "name": "Abhishek Mishra"
+      "name": personalData.name
     },
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://abmishra.dev/?s={search_term_string}",
+      "target": `${personalData.siteUrl}/?s={search_term_string}`,
       "query-input": "required name=search_term_string"
     }
   };
@@ -90,7 +87,7 @@ export const ProjectDetailSchema = ({ project }) => {
     imageUrl = project.img.default || project.img.src || project.img;
   }
   if (typeof imageUrl === 'string' && !imageUrl.startsWith('http')) {
-    imageUrl = `https://abmishra.dev${imageUrl.startsWith('/') ? imageUrl : '/' + imageUrl}`;
+    imageUrl = `${personalData.siteUrl}${imageUrl.startsWith('/') ? imageUrl : '/' + imageUrl}`;
   }
 
   const schema = {
@@ -109,16 +106,16 @@ export const ProjectDetailSchema = ({ project }) => {
     },
     "author": {
       "@type": "Person",
-      "name": "Abhishek Mishra",
-      "url": "https://abmishra.dev",
+      "name": personalData.name,
+      "url": personalData.siteUrl,
       "sameAs": [
-        "https://www.linkedin.com/in/abhishekmishra04/",
-        "https://github.com/abhishekmishra0409"
+        personalData.linkedinUrl,
+        personalData.githubUrl
       ]
     },
     "creator": {
       "@type": "Person",
-      "name": "Abhishek Mishra"
+      "name": personalData.name
     },
     "keywords": project.keywords,
     "programmingLanguage": project.tech.join(", "),
@@ -148,7 +145,7 @@ export const PortfolioProjectSchema = ({ projects }) => {
     }
     // Convert relative paths to absolute URLs for structured data
     if (typeof imageUrl === 'string' && !imageUrl.startsWith('http')) {
-      imageUrl = `https://abmishra.dev${imageUrl.startsWith('/') ? imageUrl : '/' + imageUrl}`;
+      imageUrl = `${personalData.siteUrl}${imageUrl.startsWith('/') ? imageUrl : '/' + imageUrl}`;
     }
     
     return {
@@ -160,7 +157,7 @@ export const PortfolioProjectSchema = ({ projects }) => {
       "image": imageUrl,
       "creator": {
         "@type": "Person",
-        "name": "Abhishek Mishra"
+        "name": personalData.name
       },
       "keywords": project.tech.join(", ")
     };
@@ -170,7 +167,7 @@ export const PortfolioProjectSchema = ({ projects }) => {
     "@context": "https://schema.org",
     "@type": "ItemList",
     "name": "Portfolio Projects",
-    "description": "Featured projects by Abhishek Mishra - Full Stack Developer",
+    "description": `Featured projects by ${personalData.name} - Full Stack Developer`,
     "itemListElement": portfolioItems.map((item, index) => ({
       "@type": "ListItem",
       "position": index + 1,
@@ -196,7 +193,7 @@ export const PortfolioDetailSchema = ({ project }) => {
     imageUrl = project.img.default || project.img.src || project.img;
   }
   if (typeof imageUrl === 'string' && !imageUrl.startsWith('http')) {
-    imageUrl = `https://abmishra.dev${imageUrl.startsWith('/') ? imageUrl : '/' + imageUrl}`;
+    imageUrl = `${personalData.siteUrl}${imageUrl.startsWith('/') ? imageUrl : '/' + imageUrl}`;
   }
 
   const schema = {
@@ -215,16 +212,16 @@ export const PortfolioDetailSchema = ({ project }) => {
     },
     "author": {
       "@type": "Person",
-      "name": "Abhishek Mishra",
-      "url": "https://abmishra.dev",
+      "name": personalData.name,
+      "url": personalData.siteUrl,
       "sameAs": [
-        "https://www.linkedin.com/in/abhishekmishra04/",
-        "https://github.com/abhishekmishra0409"
+        personalData.linkedinUrl,
+        personalData.githubUrl
       ]
     },
     "creator": {
       "@type": "Person",
-      "name": "Abhishek Mishra"
+      "name": personalData.name
     },
     "keywords": project.keywords,
     "programmingLanguage": project.tech.join(", "),

@@ -1,4 +1,4 @@
-﻿import { useRef } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { RiReactjsLine } from "react-icons/ri";
 import { DiGithubFull } from "react-icons/di";
@@ -17,19 +17,6 @@ import {
     SiTypescript,
 } from "react-icons/si";
 
-const floatVariants = (duration) => ({
-    initial: { y: -8 },
-    animate: {
-        y: [8, -8],
-        transition: {
-            duration,
-            ease: "easeInOut",
-            repeat: Infinity,
-            repeatType: "reverse",
-        },
-    },
-});
-
 const SkillBar = ({ name, level, icon, color, note }) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
@@ -37,272 +24,121 @@ const SkillBar = ({ name, level, icon, color, note }) => {
     return (
         <motion.div
             ref={ref}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="rounded-[1.5rem] border border-white/8 bg-white/[0.03] p-4"
+            whileHover={{ y: -3, transition: { duration: 0.2 } }}
+            className="surface-card rounded-2xl p-4 transition-all duration-200"
         >
-            <div className="flex items-start justify-between gap-4">
-                <div className="flex items-center gap-3">
-                    <span className="text-2xl">{icon}</span>
-                    <div>
-                        <p className="font-display text-lg font-semibold text-white">{name}</p>
-                        <p className="text-sm text-slate-400">{note}</p>
+            <div className="flex items-center gap-3">
+                <span className="text-2xl flex-shrink-0">{icon}</span>
+                <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-2">
+                        <p className="font-display text-sm font-semibold text-white truncate">{name}</p>
+                        <span className="flex-shrink-0 rounded-full border border-white/[0.08] bg-white/[0.04] px-2 py-0.5 text-[0.65rem] font-semibold text-slate-400">
+                            {level}%
+                        </span>
+                    </div>
+                    {note && <p className="mt-0.5 text-[0.68rem] text-slate-500 truncate">{note}</p>}
+                    <div className="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-white/[0.06]">
+                        <motion.div
+                            initial={{ width: 0 }}
+                            animate={isInView ? { width: `${level}%` } : { width: 0 }}
+                            transition={{ duration: 1.1, ease: "easeOut", delay: 0.1 }}
+                            className={`h-full rounded-full bg-gradient-to-r ${color}`}
+                        />
                     </div>
                 </div>
-                <span className="rounded-full border border-white/10 bg-slate-950/70 px-3 py-1 text-sm font-semibold text-slate-200">
-                    {level}%
-                </span>
-            </div>
-
-            <div className="mt-4 h-2.5 w-full overflow-hidden rounded-full bg-slate-900/90">
-                <motion.div
-                    initial={{ width: 0 }}
-                    animate={isInView ? { width: `${level}%` } : { width: 0 }}
-                    transition={{ duration: 1.2, ease: "easeOut" }}
-                    className={`h-full rounded-full bg-gradient-to-r ${color}`}
-                />
             </div>
         </motion.div>
     );
 };
 
-const TechBadge = ({ item }) => (
+const TechBadge = ({ item, index }) => (
     <motion.div
-        variants={floatVariants(item.duration)}
-        initial="initial"
-        animate="animate"
-        whileHover={{ y: -6, scale: 1.03 }}
-        className="group rounded-[1.5rem] border border-white/10 bg-slate-950/70 p-5 shadow-[0_18px_40px_rgba(2,8,23,0.32)] transition-all duration-300 hover:border-blue-400/25"
+        initial={{ opacity: 0, scale: 0.88 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.06 }}
+        whileHover={{ y: -4, scale: 1.06, transition: { duration: 0.18 } }}
+        className="flex items-center gap-2.5 rounded-full border border-white/[0.08] bg-[rgba(14,22,46,0.55)] px-4 py-2 text-sm font-semibold text-slate-200 shadow-sm transition-all duration-200 hover:border-blue-400/25 hover:bg-blue-500/[0.08] hover:text-blue-200 cursor-default"
     >
-        <div className={`inline-flex rounded-2xl bg-gradient-to-br ${item.color} p-3 text-3xl text-white shadow-lg`}>
-            {item.icon}
-        </div>
-        <p className="mt-4 font-display text-lg font-semibold text-white">{item.name}</p>
-        <p className="mt-1 text-sm text-slate-400">{item.label}</p>
+        <span className="text-base flex items-center">{item.icon}</span>
+        <span>{item.name}</span>
     </motion.div>
 );
 
 export const Technology = () => {
     const skills = [
-        {
-            name: "React",
-            level: 95,
-            icon: <RiReactjsLine className="text-cyan-400" />,
-            color: "from-cyan-400 to-blue-500",
-            note: "Component systems, routing, and polished UI flows",
-        },
-        {
-            name: "Node.js",
-            level: 90,
-            icon: <TbBrandNodejs className="text-green-400" />,
-            color: "from-green-400 to-emerald-500",
-            note: "API design, backend logic, and integrations",
-        },
-        {
-            name: "MongoDB",
-            level: 88,
-            icon: <SiMongodb className="text-green-500" />,
-            color: "from-green-500 to-teal-500",
-            note: "Schema thinking and scalable data handling",
-        },
-        {
-            name: "Express.js",
-            level: 92,
-            icon: <SiExpress className="text-gray-300" />,
-            color: "from-slate-300 to-slate-500",
-            note: "REST APIs and middleware-based backend architecture",
-        },
-        {
-            name: "JavaScript",
-            level: 95,
-            icon: <SiJavascript className="text-yellow-400" />,
-            color: "from-yellow-400 to-orange-500",
-            note: "Core language fluency across frontend and backend",
-        },
-        {
-            name: "TypeScript",
-            level: 85,
-            icon: <SiTypescript className="text-blue-500" />,
-            color: "from-blue-500 to-blue-600",
-            note: "Typed application code and safer large-scale changes",
-        },
-        {
-            name: "React Native",
-            level: 84,
-            icon: <SiReact className="text-cyan-400" />,
-            color: "from-cyan-400 to-blue-500",
-            note: "Cross-platform mobile UI and app feature delivery",
-        },
-        {
-            name: "Next.js",
-            level: 82,
-            icon: <SiNextdotjs className="text-slate-200" />,
-            color: "from-slate-200 to-slate-500",
-            note: "App routing, SSR patterns, and production-ready frontend structure",
-        },
-    ];
-
-    const focusAreas = [
-        {
-            title: "Frontend Systems",
-            description: "Responsive interfaces, interaction polish, and reusable UI structure.",
-            metric: "React / Tailwind / JS",
-        },
-        {
-            title: "Backend Delivery",
-            description: "Practical APIs, database flow, and dependable feature implementation.",
-            metric: "Node / Express / MongoDB",
-        },
-        {
-            title: "Product Craft",
-            description: "Balancing user experience, maintainability, and shipping speed.",
-            metric: "Design-minded execution",
-        },
+        { name: "React",        level: 95, icon: <RiReactjsLine className="text-cyan-400" />,     color: "from-cyan-400 to-blue-500",     note: "Components, routing, state" },
+        { name: "Node.js",      level: 90, icon: <TbBrandNodejs className="text-green-400" />,     color: "from-green-400 to-emerald-500", note: "APIs, auth, integrations" },
+        { name: "MongoDB",      level: 88, icon: <SiMongodb className="text-green-500" />,          color: "from-green-500 to-teal-500",    note: "Schemas, aggregation" },
+        { name: "Express.js",   level: 92, icon: <SiExpress className="text-gray-300" />,           color: "from-slate-300 to-slate-500",   note: "REST, middleware" },
+        { name: "JavaScript",   level: 95, icon: <SiJavascript className="text-yellow-400" />,      color: "from-yellow-400 to-orange-500", note: "ES2022+, async/await" },
+        { name: "TypeScript",   level: 85, icon: <SiTypescript className="text-blue-500" />,        color: "from-blue-500 to-blue-600",     note: "Types, generics" },
+        { name: "React Native", level: 84, icon: <SiReact className="text-cyan-400" />,             color: "from-cyan-400 to-blue-500",     note: "Cross-platform mobile" },
+        { name: "Next.js",      level: 82, icon: <SiNextdotjs className="text-slate-200" />,        color: "from-slate-200 to-slate-500",   note: "SSR, app router" },
     ];
 
     const badges = [
-        { name: "React",        label: "Frontend architecture",  icon: <RiReactjsLine />,   color: "from-cyan-400 to-blue-500",      duration: 2.6  },
-        { name: "Node.js",      label: "API and services",       icon: <TbBrandNodejs />,   color: "from-green-400 to-emerald-500",  duration: 3    },
-        { name: "MongoDB",      label: "Data layer",             icon: <SiMongodb />,       color: "from-green-500 to-teal-500",     duration: 2.8  },
-        { name: "Express.js",   label: "Server routing",         icon: <SiExpress />,       color: "from-slate-300 to-slate-500",    duration: 2.3  },
-        { name: "TypeScript",   label: "Type-safe scaling",      icon: <SiTypescript />,    color: "from-blue-500 to-blue-600",    duration: 2.5  },
-        { name: "JavaScript",   label: "Core language",          icon: <SiJavascript />,    color: "from-yellow-400 to-orange-500",  duration: 2.4  },
-        { name: "React Native", label: "Mobile app delivery",    icon: <SiReact />,         color: "from-cyan-400 to-blue-500",    duration: 2.55 },
-        { name: "Next.js",      label: "App architecture",       icon: <SiNextdotjs />,     color: "from-slate-200 to-slate-500",    duration: 2.7  },
-        { name: "Angular",      label: "Framework versatility",  icon: <SiAngular />,       color: "from-red-500 to-rose-600",       duration: 2.9  },
-        { name: "Tailwind CSS", label: "Design implementation",  icon: <SiTailwindcss />,   color: "from-cyan-400 to-teal-400",      duration: 2.6  },
-        { name: "MySQL",        label: "Relational data",        icon: <SiMysql />,         color: "from-blue-500 to-blue-700",    duration: 2.8  },
-{ name: "Stripe",       label: "Online payments",        icon: <SiStripe />,        color: "from-violet-500 to-blue-600",  duration: 2.45 },
-        { name: "Razorpay",     label: "Payment gateway",        icon: <SiRazorpay />,      color: "from-sky-400 to-blue-600",       duration: 2.35 },
-        { name: "GitHub",       label: "Version workflow",       icon: <DiGithubFull />,    color: "from-slate-200 to-slate-500",    duration: 2.4  },
+        { name: "Angular",      icon: <SiAngular className="text-[#dd0031]" /> },
+        { name: "Tailwind CSS", icon: <SiTailwindcss className="text-[#38bdf8]" /> },
+        { name: "MySQL",        icon: <SiMysql className="text-[#00b4d8]" /> },
+        { name: "Stripe",       icon: <SiStripe className="text-[#7c85ff]" /> },
+        { name: "Razorpay",     icon: <SiRazorpay className="text-[#3395ff]" /> },
+        { name: "GitHub",       icon: <DiGithubFull className="text-slate-200 text-2xl" /> },
     ];
 
+    const stagger = { visible: { transition: { staggerChildren: 0.08 } } };
+
     return (
-        <section className="pb-24">
+        <section className="py-12">
             <motion.div
                 whileInView={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: -24 }}
-                transition={{ duration: 0.8 }}
-                className="mx-auto mb-14 mt-12 max-w-3xl text-center lg:mb-16 lg:mt-16"
+                initial={{ opacity: 0, y: -16 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55 }}
+                className="mx-auto mb-10 text-center"
             >
                 <p className="space-eyebrow justify-center">Skills</p>
-                <h1 className="mt-5 font-display text-4xl font-bold text-white lg:text-5xl">
-                    A product-ready view of the tools behind the work.
-                </h1>
-                <p className="mt-4 text-base leading-8 text-slate-300 sm:text-lg">
-                    The focus is not just knowing technologies, but using them together to build clean interfaces,
-                    stable APIs, and better product experiences.
+                <h2 className="mt-3 font-display text-3xl font-bold text-white lg:text-4xl">
+                    Technical Expertise
+                </h2>
+                <p className="mt-2 text-sm text-slate-400">
+                    Core languages, frameworks, and tools that power my workflow.
                 </p>
             </motion.div>
 
-            <div className="grid gap-8 xl:grid-cols-[0.9fr_1.1fr]">
-                <motion.div
-                    initial={{ opacity: 0, x: -24 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.65 }}
-                    className="space-y-8"
-                >
-                    <div className="grid gap-4 sm:grid-cols-3">
-                        <div className="surface-card rounded-[1.75rem] p-5">
-                            <p className="text-sm uppercase tracking-[0.3em] text-blue-300">Core Stack</p>
-                            <p className="mt-3 font-display text-2xl font-bold text-white">MERN</p>
-                            <p className="mt-2 text-sm leading-6 text-slate-400">Primary workflow for modern full stack products.</p>
-                        </div>
-                        <div className="surface-card rounded-[1.75rem] p-5">
-                            <p className="text-sm uppercase tracking-[0.3em] text-blue-300">Strength</p>
-                            <p className="mt-3 font-display text-2xl font-bold text-white">UI + API</p>
-                            <p className="mt-2 text-sm leading-6 text-slate-400">Comfortable across frontend polish and backend delivery.</p>
-                        </div>
-                        <div className="surface-card rounded-[1.75rem] p-5">
-                            <p className="text-sm uppercase tracking-[0.3em] text-blue-300">Coverage</p>
-                            <p className="mt-3 font-display text-2xl font-bold text-white">16+</p>
-                            <p className="mt-2 text-sm leading-6 text-slate-400">Technologies used across projects and production work.</p>
-                        </div>
-                    </div>
+            {/* Skill bars — 2x4 grid */}
+            <motion.div
+                variants={stagger}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
+            >
+                {skills.map((skill) => (
+                    <SkillBar key={skill.name} {...skill} />
+                ))}
+            </motion.div>
 
-                    <div className="surface-card rounded-[2rem] p-6 lg:p-8">
-                        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                            <div>
-                                <p className="text-sm uppercase tracking-[0.3em] text-blue-300">Capability Snapshot</p>
-                                <h2 className="mt-3 font-display text-2xl font-semibold text-white lg:text-3xl">
-                                    Where I add the most value
-                                </h2>
-                            </div>
-                            <p className="max-w-sm text-sm leading-6 text-slate-400">
-                                I&apos;m strongest where product thinking, responsive UI, and full stack execution need to meet.
-                            </p>
-                        </div>
-
-                        <div className="mt-6 space-y-4">
-                            {focusAreas.map((area) => (
-                                <div key={area.title} className="rounded-[1.5rem] border border-white/8 bg-white/[0.03] p-5">
-                                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                                        <div>
-                                            <h3 className="font-display text-lg font-semibold text-white">{area.title}</h3>
-                                            <p className="mt-2 text-sm leading-6 text-slate-400">{area.description}</p>
-                                        </div>
-                                        <span className="rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-blue-200">
-                                            {area.metric}
-                                        </span>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0, x: 24 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.65, delay: 0.05 }}
-                    className="surface-card rounded-[2rem] p-6 lg:p-8"
-                >
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                        <div>
-                            <p className="text-sm uppercase tracking-[0.3em] text-blue-300">Proficiency Board</p>
-                            <h2 className="mt-3 font-display text-2xl font-semibold text-white lg:text-3xl">
-                                Daily-use development strengths
-                            </h2>
-                        </div>
-                        <p className="max-w-sm text-sm leading-6 text-slate-400">
-                            A practical view of the technologies I rely on most often while building products.
-                        </p>
-                    </div>
-
-                    <div className="mt-8 grid gap-4 lg:grid-cols-2">
-                        {skills.map((skill) => (
-                            <SkillBar key={skill.name} {...skill} />
-                        ))}
-                    </div>
-                </motion.div>
-            </div>
-
+            {/* Additional tech badges */}
             <motion.div
                 whileInView={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: 28 }}
+                initial={{ opacity: 0, y: 16 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.7 }}
-                className="mt-16"
+                transition={{ duration: 0.55, delay: 0.1 }}
+                className="mt-10 border-t border-white/[0.06] pt-8"
             >
-                <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                    <h2 className="font-display text-3xl font-bold text-white">
-                        The wider technology mix behind the portfolio
-                    </h2>
-                    <p className="max-w-md text-sm leading-6 text-slate-400">
-                        Tools and frameworks I move across depending on the problem, team, and product requirements.
-                    </p>
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
-                    {badges.map((item) => (
-                        <TechBadge key={item.name} item={item} />
+                <p className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                    Other technologies & tools
+                </p>
+                <div className="flex flex-wrap justify-center gap-2.5">
+                    {badges.map((item, i) => (
+                        <TechBadge key={item.name} item={item} index={i} />
                     ))}
                 </div>
             </motion.div>
         </section>
     );
 };
-

@@ -7,6 +7,9 @@ const ScrollToTop = () => {
     const { pathname } = useLocation();
 
     useEffect(() => {
+        const isSectionRoute = ["/about", "/experience", "/skills", "/projects", "/contact"].includes(pathname);
+        if (isSectionRoute) return;
+
         if (window.innerWidth >= 768) {
             scrollToTop(true);
             return;
