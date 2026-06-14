@@ -19,11 +19,11 @@ const Single = ({ item }) => {
         >
             <div className="group w-full min-w-0 max-w-xl justify-self-center lg:max-w-none" ref={ref}>
                 <div className="relative overflow-hidden rounded-[1.75rem] shadow-2xl">
-                    <div className="absolute inset-0 z-10 bg-indigo-500/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    <div className="absolute inset-0 z-10 bg-blue-500/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                     <img
                         className="h-full w-full rounded-[1.75rem] border border-white/10 object-cover transition-transform duration-300 group-hover:scale-105"
                         src={item.img}
-                        alt={`${item.title} — project by Abhishek Mishra`}
+                        alt={`${item.title} project by Abhishek Mishra`}
                         loading="lazy"
                         width="800"
                         height="600"
@@ -49,7 +49,7 @@ const Single = ({ item }) => {
                         </h2>
                     </Link>
                     {item.subtitle && (
-                        <p className="mb-2 text-sm font-medium text-indigo-300">{item.subtitle}</p>
+                        <p className="mb-2 text-sm font-medium text-blue-300">{item.subtitle}</p>
                     )}
                     <p className="mb-6 text-lg leading-relaxed text-slate-300" itemProp="description">
                         {item.desc}
@@ -59,7 +59,7 @@ const Single = ({ item }) => {
                             <motion.span
                                 key={index}
                                 whileHover={{ scale: 1.08 }}
-                                className="rounded-full border border-indigo-400/20 bg-indigo-400/10 px-4 py-2 text-sm font-medium text-indigo-200 transition-all duration-300 hover:bg-indigo-400/15"
+                                className="rounded-full border border-blue-400/20 bg-blue-400/10 px-4 py-2 text-sm font-medium text-blue-200 transition-all duration-300 hover:bg-blue-400/15"
                             >
                                 {tech}
                             </motion.span>
@@ -113,7 +113,7 @@ export const Portfolio = () => {
                         Featured Projects
                     </h1>
                     <p className="mt-3 text-sm text-slate-400 lg:text-base">
-                        A selection of projects built end to end — from design to deployment.
+                        A selection of projects built end to end, from design to deployment.
                     </p>
                 </div>
                 <motion.div

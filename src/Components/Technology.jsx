@@ -1,7 +1,7 @@
-import { useRef } from "react";
+﻿import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { RiReactjsLine } from "react-icons/ri";
-import { DiGithubFull, DiJava } from "react-icons/di";
+import { DiGithubFull } from "react-icons/di";
 import { TbBrandNodejs } from "react-icons/tb";
 import {
     SiAngular,
@@ -10,7 +10,6 @@ import {
     SiMongodb,
     SiMysql,
     SiNextdotjs,
-    SiPython,
     SiRazorpay,
     SiReact,
     SiStripe,
@@ -74,7 +73,7 @@ const TechBadge = ({ item }) => (
         initial="initial"
         animate="animate"
         whileHover={{ y: -6, scale: 1.03 }}
-        className="group rounded-[1.5rem] border border-white/10 bg-slate-950/70 p-5 shadow-[0_18px_40px_rgba(2,8,23,0.32)] transition-all duration-300 hover:border-indigo-400/25"
+        className="group rounded-[1.5rem] border border-white/10 bg-slate-950/70 p-5 shadow-[0_18px_40px_rgba(2,8,23,0.32)] transition-all duration-300 hover:border-blue-400/25"
     >
         <div className={`inline-flex rounded-2xl bg-gradient-to-br ${item.color} p-3 text-3xl text-white shadow-lg`}>
             {item.icon}
@@ -125,14 +124,14 @@ export const Technology = () => {
             name: "TypeScript",
             level: 85,
             icon: <SiTypescript className="text-blue-500" />,
-            color: "from-blue-500 to-indigo-600",
+            color: "from-blue-500 to-blue-600",
             note: "Typed application code and safer large-scale changes",
         },
         {
             name: "React Native",
             level: 84,
             icon: <SiReact className="text-cyan-400" />,
-            color: "from-cyan-400 to-indigo-500",
+            color: "from-cyan-400 to-blue-500",
             note: "Cross-platform mobile UI and app feature delivery",
         },
         {
@@ -167,16 +166,14 @@ export const Technology = () => {
         { name: "Node.js",      label: "API and services",       icon: <TbBrandNodejs />,   color: "from-green-400 to-emerald-500",  duration: 3    },
         { name: "MongoDB",      label: "Data layer",             icon: <SiMongodb />,       color: "from-green-500 to-teal-500",     duration: 2.8  },
         { name: "Express.js",   label: "Server routing",         icon: <SiExpress />,       color: "from-slate-300 to-slate-500",    duration: 2.3  },
-        { name: "TypeScript",   label: "Type-safe scaling",      icon: <SiTypescript />,    color: "from-blue-500 to-indigo-600",    duration: 2.5  },
+        { name: "TypeScript",   label: "Type-safe scaling",      icon: <SiTypescript />,    color: "from-blue-500 to-blue-600",    duration: 2.5  },
         { name: "JavaScript",   label: "Core language",          icon: <SiJavascript />,    color: "from-yellow-400 to-orange-500",  duration: 2.4  },
-        { name: "React Native", label: "Mobile app delivery",    icon: <SiReact />,         color: "from-cyan-400 to-indigo-500",    duration: 2.55 },
+        { name: "React Native", label: "Mobile app delivery",    icon: <SiReact />,         color: "from-cyan-400 to-blue-500",    duration: 2.55 },
         { name: "Next.js",      label: "App architecture",       icon: <SiNextdotjs />,     color: "from-slate-200 to-slate-500",    duration: 2.7  },
         { name: "Angular",      label: "Framework versatility",  icon: <SiAngular />,       color: "from-red-500 to-rose-600",       duration: 2.9  },
         { name: "Tailwind CSS", label: "Design implementation",  icon: <SiTailwindcss />,   color: "from-cyan-400 to-teal-400",      duration: 2.6  },
-        { name: "MySQL",        label: "Relational data",        icon: <SiMysql />,         color: "from-blue-500 to-indigo-500",    duration: 2.8  },
-        { name: "Python",       label: "Utilities and scripting",icon: <SiPython />,        color: "from-blue-400 to-cyan-500",      duration: 2.2  },
-        { name: "Java",         label: "Core engineering",       icon: <DiJava />,          color: "from-red-500 to-pink-500",       duration: 2.5  },
-        { name: "Stripe",       label: "Online payments",        icon: <SiStripe />,        color: "from-violet-500 to-indigo-600",  duration: 2.45 },
+        { name: "MySQL",        label: "Relational data",        icon: <SiMysql />,         color: "from-blue-500 to-blue-700",    duration: 2.8  },
+{ name: "Stripe",       label: "Online payments",        icon: <SiStripe />,        color: "from-violet-500 to-blue-600",  duration: 2.45 },
         { name: "Razorpay",     label: "Payment gateway",        icon: <SiRazorpay />,      color: "from-sky-400 to-blue-600",       duration: 2.35 },
         { name: "GitHub",       label: "Version workflow",       icon: <DiGithubFull />,    color: "from-slate-200 to-slate-500",    duration: 2.4  },
     ];
@@ -209,17 +206,17 @@ export const Technology = () => {
                 >
                     <div className="grid gap-4 sm:grid-cols-3">
                         <div className="surface-card rounded-[1.75rem] p-5">
-                            <p className="text-sm uppercase tracking-[0.3em] text-indigo-300">Core Stack</p>
+                            <p className="text-sm uppercase tracking-[0.3em] text-blue-300">Core Stack</p>
                             <p className="mt-3 font-display text-2xl font-bold text-white">MERN</p>
                             <p className="mt-2 text-sm leading-6 text-slate-400">Primary workflow for modern full stack products.</p>
                         </div>
                         <div className="surface-card rounded-[1.75rem] p-5">
-                            <p className="text-sm uppercase tracking-[0.3em] text-indigo-300">Strength</p>
+                            <p className="text-sm uppercase tracking-[0.3em] text-blue-300">Strength</p>
                             <p className="mt-3 font-display text-2xl font-bold text-white">UI + API</p>
                             <p className="mt-2 text-sm leading-6 text-slate-400">Comfortable across frontend polish and backend delivery.</p>
                         </div>
                         <div className="surface-card rounded-[1.75rem] p-5">
-                            <p className="text-sm uppercase tracking-[0.3em] text-indigo-300">Coverage</p>
+                            <p className="text-sm uppercase tracking-[0.3em] text-blue-300">Coverage</p>
                             <p className="mt-3 font-display text-2xl font-bold text-white">16+</p>
                             <p className="mt-2 text-sm leading-6 text-slate-400">Technologies used across projects and production work.</p>
                         </div>
@@ -228,7 +225,7 @@ export const Technology = () => {
                     <div className="surface-card rounded-[2rem] p-6 lg:p-8">
                         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                             <div>
-                                <p className="text-sm uppercase tracking-[0.3em] text-indigo-300">Capability Snapshot</p>
+                                <p className="text-sm uppercase tracking-[0.3em] text-blue-300">Capability Snapshot</p>
                                 <h2 className="mt-3 font-display text-2xl font-semibold text-white lg:text-3xl">
                                     Where I add the most value
                                 </h2>
@@ -246,7 +243,7 @@ export const Technology = () => {
                                             <h3 className="font-display text-lg font-semibold text-white">{area.title}</h3>
                                             <p className="mt-2 text-sm leading-6 text-slate-400">{area.description}</p>
                                         </div>
-                                        <span className="rounded-full border border-indigo-400/20 bg-indigo-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-indigo-200">
+                                        <span className="rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-blue-200">
                                             {area.metric}
                                         </span>
                                     </div>
@@ -265,7 +262,7 @@ export const Technology = () => {
                 >
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                         <div>
-                            <p className="text-sm uppercase tracking-[0.3em] text-indigo-300">Proficiency Board</p>
+                            <p className="text-sm uppercase tracking-[0.3em] text-blue-300">Proficiency Board</p>
                             <h2 className="mt-3 font-display text-2xl font-semibold text-white lg:text-3xl">
                                 Daily-use development strengths
                             </h2>
@@ -308,3 +305,4 @@ export const Technology = () => {
         </section>
     );
 };
+

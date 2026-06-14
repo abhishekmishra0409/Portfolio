@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
 
 export const Footer = () => {
@@ -79,3 +79,4 @@ export const Footer = () => {
         </footer>
     );
 };
+

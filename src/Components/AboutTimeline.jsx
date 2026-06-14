@@ -10,17 +10,15 @@ export const AboutTimeline = () => {
             institution: "Swami Vivekanand College of Engineering (SVCE), Indore, MP",
             year: "Sep 2021 – May 2025 · GPA 7.36 / 10",
             icon: <TbSchool />,
-            description:
-                "Completed Bachelor's degree in Information Technology with focus on web development and software engineering.",
+            description: "Completed B.Tech in IT with focus on web development and software engineering.",
         },
         {
             id: 2,
-            title: "Higher Secondary Education (Class XII)",
+            title: "Higher Secondary (Class XII)",
             institution: "Govt. Excellence Bal Vinay Mandir, Indore, MP",
             year: "2020 – 2021 · 81%",
             icon: <TbSparkles />,
-            description:
-                "Completed higher secondary education with strong foundation in mathematics and science.",
+            description: "Completed Class XII with a strong foundation in mathematics and science.",
         },
     ];
 
@@ -33,10 +31,10 @@ export const AboutTimeline = () => {
             role: "Current Role",
             icon: <TbBriefcase />,
             responsibilities: [
-                "Architect and maintain scalable multi-tenant SaaS platforms using Next.js, Node.js, and MySQL",
-                "Designed and implemented RBAC for enterprise-grade user and permission management",
-                "Integrated Stripe for subscription management, checkout flows, and webhook synchronization",
-                "Built secure authentication workflows using JWT and OAuth industry best practices",
+                "Architect and maintain scalable multi-tenant SaaS platforms using Next.js and MySQL",
+                "Designed and implemented RBAC for enterprise-grade permission management",
+                "Integrated Stripe for subscription management and webhook synchronization",
+                "Built secure auth workflows using JWT and OAuth industry best practices",
             ],
             isCurrent: true,
         },
@@ -48,10 +46,9 @@ export const AboutTimeline = () => {
             role: "Full-time · Remote",
             icon: <TbBriefcase />,
             responsibilities: [
-                "Led backend development for a CRM project, managing a team of 5+ developers",
-                "Engineered the Maa Foundation website with Razorpay integration for secure payments",
-                "Developed healthcare and business management applications using React.js and Node.js",
-                "Translated Figma designs into high-performance components using Tailwind CSS",
+                "Led backend development for a CRM, managing a team of 5+ developers",
+                "Built the Maa Foundation website with Razorpay integration",
+                "Developed healthcare apps using React.js and Node.js",
             ],
             isCurrent: false,
         },
@@ -63,8 +60,8 @@ export const AboutTimeline = () => {
             role: "Internship · Remote",
             icon: <TbBriefcase />,
             responsibilities: [
-                "Built responsive web applications using React.js, HTML, CSS, and JavaScript",
-                "Collaborated with senior developers on feature implementation, bug fixes, and code reviews",
+                "Built responsive web apps using React.js, HTML, CSS, and JavaScript",
+                "Collaborated with senior developers on features, bug fixes, and code reviews",
             ],
             isCurrent: false,
         },
@@ -76,9 +73,8 @@ export const AboutTimeline = () => {
             role: "Independent Work",
             icon: <TbBriefcase />,
             responsibilities: [
-                "Build websites and web applications for clients alongside full-time work",
-                "Design UI/UX and implement responsive, accessible interfaces",
-                "Manage client relationships and project delivery timelines end to end",
+                "Build web applications for clients alongside full-time work",
+                "Handle design, development, and post-launch maintenance end to end",
             ],
             isCurrent: false,
         },
@@ -88,94 +84,94 @@ export const AboutTimeline = () => {
         {
             id: 1,
             title: "2nd Place — Pravah 3.0 Hackathon",
-            description: "Built and presented Exchangify, an innovative skill-sharing platform with a barter-based learning system",
+            description: "Built Exchangify — a barter-based skill-sharing platform",
             icon: <TbTrophy />,
         },
         {
             id: 2,
-            title: "Tech Lead, Google Developer Student Club",
-            description: "Organized technical workshops, coding challenges, and mentoring sessions for student members",
+            title: "Tech Lead, GDSC",
+            description: "Organised workshops, coding challenges, and mentoring at Google Developer Student Club",
             icon: <TbAward />,
         },
         {
             id: 3,
             title: "Event Manager, Taarunyam Techfest",
-            description: "Managed technical events, logistics, and operations for the college technology festival",
+            description: "Managed technical events and logistics for the college tech festival",
             icon: <TbSparkles />,
         },
         {
             id: 4,
             title: "Chess Competition Winner",
-            description: "Winner of interschool chess competition",
+            description: "Won interschool chess competition",
             icon: <GiChessKnight />,
         },
         {
             id: 5,
             title: "Gaming Tournament Winner",
-            description: "Winner of mobile gaming tournament",
+            description: "Won mobile gaming tournament",
             icon: <TbDeviceGamepad2 />,
         },
     ];
 
     const TimelineItem = ({ item, index, type = "education" }) => {
         const isEven = index % 2 === 0;
-
         return (
             <motion.div
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`relative mb-8 flex w-full items-center ${isEven ? "lg:flex-row-reverse" : "lg:flex-row"} flex-col lg:mb-12`}
+                transition={{ duration: 0.45, delay: index * 0.08 }}
+                className={`relative mb-8 flex w-full items-center ${isEven ? "lg:flex-row-reverse" : "lg:flex-row"} flex-col lg:mb-10`}
             >
-                <div className="absolute left-1/2 hidden h-full w-0.5 -translate-x-1/2 bg-gradient-to-b from-indigo-400 via-violet-400 to-indigo-600 lg:block" />
-                <div className="absolute bottom-0 left-4 top-0 w-0.5 bg-gradient-to-b from-indigo-400 via-violet-400 to-indigo-600 lg:hidden" />
+                {/* Timeline line */}
+                <div className="absolute left-1/2 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-blue-500 via-blue-400 to-blue-600 lg:block" />
+                <div className="absolute bottom-0 left-4 top-0 w-px bg-gradient-to-b from-blue-500 to-blue-600 lg:hidden" />
 
                 <div className={`ml-12 w-full lg:ml-0 lg:w-5/12 ${isEven ? "lg:mr-auto lg:pr-8" : "lg:ml-auto lg:pl-8"}`}>
                     <motion.div
-                        whileHover={{ scale: 1.02, y: -4 }}
-                        className="surface-card rounded-[1.5rem] p-6 shadow-xl transition-all duration-300 hover:border-indigo-400/20"
+                        whileHover={{ y: -3 }}
+                        className="surface-card rounded-2xl p-5 transition-all duration-300 hover:border-blue-400/20"
                     >
                         {type === "education" ? (
                             <>
                                 <div className="mb-3 flex items-center gap-3">
-                                    <div className="text-2xl text-indigo-300">{item.icon}</div>
+                                    <div className="text-xl text-blue-400">{item.icon}</div>
                                     <div>
-                                        <h3 className="font-display text-xl font-semibold text-white">{item.title}</h3>
-                                        <p className="text-sm text-indigo-300">{item.institution}</p>
+                                        <h3 className="font-display text-base font-semibold text-white">{item.title}</h3>
+                                        <p className="text-xs text-blue-300">{item.institution}</p>
                                     </div>
                                 </div>
-                                <p className="mb-2 text-sm text-slate-400">{item.year}</p>
+                                <p className="mb-1.5 text-xs text-slate-400">{item.year}</p>
                                 <p className="text-sm text-slate-400">{item.description}</p>
                             </>
                         ) : (
                             <>
-                                <div className="mb-3 flex items-start justify-between gap-4">
+                                <div className="mb-2.5 flex items-start justify-between gap-3">
                                     <div className="flex items-center gap-3">
-                                        <div className="text-2xl text-indigo-300">{item.icon}</div>
+                                        <div className="text-xl text-blue-400">{item.icon}</div>
                                         <div>
-                                            <h3 className="font-display text-xl font-semibold text-white">{item.title}</h3>
-                                            <p className="text-sm text-indigo-300">{item.company}</p>
+                                            <h3 className="font-display text-base font-semibold text-white">{item.title}</h3>
+                                            <p className="text-xs text-blue-300">{item.company}</p>
                                         </div>
                                     </div>
                                     {item.isCurrent && (
-                                        <span className="rounded-full border border-indigo-400/20 bg-indigo-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-indigo-200">
+                                        <span className="shrink-0 rounded-full border border-blue-400/20 bg-blue-400/10 px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-blue-200">
                                             Current
                                         </span>
                                     )}
                                 </div>
-                                <div className="mb-3 flex flex-wrap items-center gap-2 text-sm text-slate-400">
-                                    <span className="flex items-center gap-2">
-                                        <TbCalendarEvent className="text-indigo-300" />
+                                <div className="mb-2.5 flex flex-wrap gap-2 text-xs text-slate-400">
+                                    <span className="flex items-center gap-1.5">
+                                        <TbCalendarEvent className="text-blue-400" />
                                         {item.duration}
                                     </span>
-                                    <span className="text-slate-600">|</span>
+                                    <span className="text-slate-600">·</span>
                                     <span>{item.role}</span>
                                 </div>
-                                <ul className="space-y-2">
+                                <ul className="space-y-1.5">
                                     {item.responsibilities.map((resp) => (
                                         <li key={resp} className="flex items-start gap-2 text-sm text-slate-400">
-                                            <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-indigo-400/70" />
+                                            <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-blue-400/60" />
                                             <span>{resp}</span>
                                         </li>
                                     ))}
@@ -185,73 +181,71 @@ export const AboutTimeline = () => {
                     </motion.div>
                 </div>
 
-                <div className="absolute left-1/2 z-10 hidden h-4 w-4 -translate-x-1/2 rounded-full border-4 border-slate-950 bg-gradient-to-r from-indigo-400 to-violet-500 lg:block" />
-                <div className="absolute left-4 top-0 z-10 h-4 w-4 rounded-full border-4 border-slate-950 bg-gradient-to-r from-indigo-400 to-violet-500 lg:hidden" />
+                {/* Timeline dot */}
+                <div className="absolute left-1/2 z-10 hidden h-3.5 w-3.5 -translate-x-1/2 rounded-full border-4 border-[#060a12] bg-blue-500 lg:block" />
+                <div className="absolute left-4 top-0 z-10 h-3.5 w-3.5 rounded-full border-4 border-[#060a12] bg-blue-500 lg:hidden" />
             </motion.div>
         );
     };
 
     return (
-        <div className="py-12 lg:py-16">
-            <section className="mb-16 lg:mb-24">
+        <div className="space-y-16 py-8 lg:space-y-20 lg:py-12">
+            {/* Education */}
+            <section>
                 <motion.h2
-                    initial={{ opacity: 0, y: -20 }}
+                    initial={{ opacity: 0, y: -16 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mb-12 text-center font-display text-3xl font-bold text-gradient lg:text-4xl"
+                    className="mb-10 text-center font-display text-2xl font-bold text-gradient lg:text-3xl"
                 >
                     Education
                 </motion.h2>
                 <div className="relative mx-auto max-w-4xl">
-                    {education.map((item, index) => (
-                        <TimelineItem key={item.id} item={item} index={index} type="education" />
-                    ))}
+                    {education.map((item, i) => <TimelineItem key={item.id} item={item} index={i} type="education" />)}
                 </div>
             </section>
 
-            <section className="mb-16 lg:mb-24">
+            {/* Experience */}
+            <section>
                 <motion.h2
-                    initial={{ opacity: 0, y: -20 }}
+                    initial={{ opacity: 0, y: -16 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mb-12 text-center font-display text-3xl font-bold text-gradient lg:text-4xl"
+                    className="mb-10 text-center font-display text-2xl font-bold text-gradient lg:text-3xl"
                 >
                     Experience
                 </motion.h2>
-                <div className="relative mx-auto max-w-5xl">
-                    {experience.map((item, index) => (
-                        <TimelineItem key={item.id} item={item} index={index} type="experience" />
-                    ))}
+                <div className="relative mx-auto max-w-4xl">
+                    {experience.map((item, i) => <TimelineItem key={item.id} item={item} index={i} type="experience" />)}
                 </div>
             </section>
 
+            {/* Achievements */}
             <section>
                 <motion.h2
-                    initial={{ opacity: 0, y: -20 }}
+                    initial={{ opacity: 0, y: -16 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mb-8 px-4 text-center font-display text-2xl font-bold text-gradient sm:text-3xl lg:mb-12 lg:text-4xl"
+                    className="mb-8 text-center font-display text-2xl font-bold text-gradient lg:text-3xl"
                 >
                     Achievements
                 </motion.h2>
-                <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-                    {achievements.map((achievement, index) => (
+                <div className="mx-auto grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                    {achievements.map((a, i) => (
                         <motion.div
-                            key={achievement.id}
-                            initial={{ opacity: 0, scale: 0.9 }}
+                            key={a.id}
+                            initial={{ opacity: 0, scale: 0.92 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.4, delay: index * 0.1 }}
-                            whileHover={{ scale: 1.04, y: -4 }}
-                            className="surface-card rounded-[1.5rem] p-6 shadow-xl transition-all duration-300 hover:border-indigo-400/20"
+                            transition={{ duration: 0.35, delay: i * 0.07 }}
+                            whileHover={{ y: -3 }}
+                            className="surface-card rounded-2xl p-5 transition-all duration-300 hover:border-blue-400/20"
                         >
-                            <div className="flex items-center gap-4">
-                                <div className="text-3xl text-indigo-300">{achievement.icon}</div>
+                            <div className="flex items-start gap-3">
+                                <div className="mt-0.5 shrink-0 text-2xl text-blue-400">{a.icon}</div>
                                 <div>
-                                    <h3 className="mb-1 font-display text-lg font-semibold text-white">
-                                        {achievement.title}
-                                    </h3>
-                                    <p className="text-sm text-slate-400">{achievement.description}</p>
+                                    <h3 className="font-display text-sm font-semibold text-white">{a.title}</h3>
+                                    <p className="mt-1 text-xs leading-5 text-slate-400">{a.description}</p>
                                 </div>
                             </div>
                         </motion.div>

@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+﻿import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import logo from "../assets/AM Logo.png";
@@ -106,7 +106,7 @@ export const Navbar = () => {
                                       <button
                                           type="button"
                                           onClick={() => setIsMobileMenuOpen(false)}
-                                          className="absolute right-4 top-4 z-[10] flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-slate-900/90 text-slate-200 transition hover:border-indigo-400/30 hover:text-indigo-300"
+                                          className="absolute right-4 top-4 z-[10] flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-slate-900/90 text-slate-200 transition hover:border-blue-400/30 hover:text-blue-300"
                                           aria-label="Close mobile menu"
                                       >
                                           <TbX className="text-xl" />
@@ -184,11 +184,11 @@ export const Navbar = () => {
                     >
                         <Link
                             to="/"
-                            aria-label="Home — Abhishek Mishra"
+                            aria-label="Home â€” Abhishek Mishra"
                             onClick={() => setIsMobileMenuOpen(false)}
                             className="flex items-center gap-3"
                         >
-                            <img className="w-12 sm:w-14" src={logo} alt="Abhishek Mishra — AM" loading="eager" />
+                            <img className="w-12 sm:w-14" src={logo} alt="Abhishek Mishra â€” AM" loading="eager" />
                             <div className="hidden sm:block">
                                 <p className="text-sm font-semibold text-slate-100 tracking-tight">
                                     Abhishek Mishra
@@ -198,7 +198,7 @@ export const Navbar = () => {
                         </Link>
                     </motion.div>
 
-                    {/* Desktop nav — text-only pills, no icons */}
+                    {/* Desktop nav â€” text-only pills, no icons */}
                     <div className="hidden md:flex flex-1 items-center justify-center gap-1">
                         {navLinks.map((link) => (
                             <Link
@@ -228,7 +228,7 @@ export const Navbar = () => {
                     </div>
 
                     <button
-                        className="relative z-[100] flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200 transition hover:text-indigo-300 md:hidden"
+                        className="relative z-[100] flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200 transition hover:text-blue-300 md:hidden"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         aria-label="Toggle mobile menu"
                         aria-expanded={isMobileMenuOpen}
@@ -241,3 +241,4 @@ export const Navbar = () => {
         </>
     );
 };
+

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import Toastify from "toastify-js";
@@ -15,19 +15,19 @@ export const Contact = () => {
             title: "Email",
             value: "abhishekmishra0409@gmail.com",
             href: "mailto:abhishekmishra0409@gmail.com",
-            icon: <TbMail className="text-xl text-indigo-300" />,
+            icon: <TbMail className="text-xl text-blue-300" />,
         },
         {
             title: "Phone",
             value: "+91 7489977978",
             href: "tel:+917489977978",
-            icon: <TbPhone className="text-xl text-indigo-300" />,
+            icon: <TbPhone className="text-xl text-blue-300" />,
         },
         {
             title: "Location",
             value: "Indore, Madhya Pradesh, India",
             href: null,
-            icon: <TbMapPin className="text-xl text-indigo-300" />,
+            icon: <TbMapPin className="text-xl text-blue-300" />,
         },
     ];
 
@@ -48,7 +48,7 @@ export const Contact = () => {
                         gravity: "top",
                         position: "center",
                         stopOnFocus: true,
-                        style: { background: "linear-gradient(90deg, #6366f1 0%, #818cf8 100%)" },
+                        style: { background: "linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%)" },
                     }).showToast();
                     setIsSubmitting(false);
                 },
@@ -86,7 +86,7 @@ export const Contact = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.55 }}
                 >
-                    <p className="text-sm font-semibold uppercase tracking-[0.35em] text-indigo-300">
+                    <p className="text-sm font-semibold uppercase tracking-[0.35em] text-blue-300">
                         Open to Opportunities
                     </p>
                     <h2 className="mt-4 font-display text-3xl font-semibold text-white sm:text-4xl">
@@ -99,7 +99,7 @@ export const Contact = () => {
                     <div className="mt-8 grid gap-4">
                         {contactItems.map((item) => {
                             const content = (
-                                <div className="flex items-start gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 transition-colors hover:border-indigo-400/20">
+                                <div className="flex items-start gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 transition-colors hover:border-blue-400/20">
                                     <div className="mt-1 text-lg">{item.icon}</div>
                                     <div>
                                         <p className="text-sm uppercase tracking-[0.3em] text-slate-500">{item.title}</p>
@@ -149,7 +149,7 @@ export const Contact = () => {
                                 required
                                 placeholder="Your name"
                                 name="user_name"
-                                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-white outline-none transition focus:border-indigo-400/40 focus:bg-white/8"
+                                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-white outline-none transition focus:border-blue-400/40 focus:bg-white/8"
                             />
                         </div>
 
@@ -166,7 +166,7 @@ export const Contact = () => {
                                 required
                                 placeholder="you@example.com"
                                 name="user_email"
-                                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-white outline-none transition focus:border-indigo-400/40 focus:bg-white/8"
+                                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-white outline-none transition focus:border-blue-400/40 focus:bg-white/8"
                             />
                         </div>
 
@@ -183,7 +183,7 @@ export const Contact = () => {
                                 required
                                 placeholder="Tell me about the project, role, or idea you have in mind."
                                 name="message"
-                                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-white outline-none transition focus:border-indigo-400/40 focus:bg-white/8"
+                                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-white outline-none transition focus:border-blue-400/40 focus:bg-white/8"
                             />
                         </div>
 
@@ -200,3 +200,4 @@ export const Contact = () => {
         </section>
     );
 };
+
